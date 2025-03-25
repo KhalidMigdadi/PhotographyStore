@@ -1,0 +1,6 @@
+@PhotographyStore.Server_HostAddress = http://localhost:5074
+
+GET {{PhotographyStore.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
