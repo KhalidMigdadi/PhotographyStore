@@ -19,9 +19,6 @@ const routes: Routes = [
   { path: "checkout", component: CheckoutComponent },
   { path: "cart", component: CartComponent },
   { path: "login", component: LoginRegisterComponent },
-  { path: "about", component: AboutUsComponent },
-  { path: "profile", component: ProfileComponent }
-
 
 
 

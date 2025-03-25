@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './User/home/home.component';
+import { FavoritComponent } from './User/favorit/favorit.component';
 import { ShopComponent } from './User/shop/shop.component';
 import { FavoritComponent } from './User/favorit/favorit.component';
 import { ContactUsComponent } from './User/contact-us/contact-us.component';
@@ -29,8 +30,6 @@ import { ProfileComponent } from './User/profile/profile.component';
     CheckoutComponent,
     CartComponent,
     LoginRegisterComponent,
-    AboutUsComponent,
-    ProfileComponent
   ],
   imports: [
     BrowserModule, HttpClientModule,
