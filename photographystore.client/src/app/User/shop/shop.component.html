@@ -65,7 +65,7 @@
               <!--Image & Action Start-->
               <div class="image-action">
 
-                <a class="image" href="single-product.html"><img src="assets/images/products/product-1.jpg" alt=""></a>
+                <a class="image" routerLink="/details"><img src="assets/images/products/product-1.jpg" alt=""></a>
 
                 <div class="labels">
                   <span class="label new">New</span>
@@ -76,18 +76,9 @@
 
                 <!--Action Start-->
                 <div class="action">
-                  <div id="cart" class="cart" data-totalitems="0">
-                    <i class="fas fa-shopping-cart"></i>
-                  </div>
-
-                  <div class="page-wrapper">
-                    <button id="addtocart">
-                      Add to Cart
-                      <span class="cart-item"></span>
-                    </button>
-                    <div class="new-version"></div>
-                  </div>
-                  <!--<a href="#" class="action-btn action-cart"><i class="icofont-shopping-cart"></i></a>-->
+                  <a href="#" class="action-btn action-quickview"><i class="icofont-search-1"></i></a>
+                  <a routerLink="/cart" class="action-btn action-cart"><i class="icofont-shopping-cart"></i></a>
+                  <a href="#" class="action-btn action-compare"><i class="icofont-refresh"></i></a>
                 </div>
                 <!--Action End-->
 
