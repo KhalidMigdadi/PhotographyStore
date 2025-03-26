@@ -43,7 +43,12 @@ const routes: Routes = [
 
 
   {
-    path: "dashboard", component: DashboardComponent },
+    path: "dashboard", component: DashboardComponent, children: [
+
+
+
+  ] },
+  {  path: "dashboard", component: DashboardComponent },
 
 
 
