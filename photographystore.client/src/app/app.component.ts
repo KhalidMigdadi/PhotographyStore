@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 
 interface WeatherForecast {
   date: string;
@@ -14,24 +14,45 @@ interface WeatherForecast {
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit {
-  public forecasts: WeatherForecast[] = [];
 
-  constructor(private http: HttpClient) {}
-
+  constructor(private renderer: Renderer2 ) { }
   ngOnInit() {
-    this.getForecasts();
+    this.loadScript('assets/js/main.js');
+    this.loadScript('assets/js/vendor/modernizr-3.11.2.min.js');
+    this.loadScript('assets/js/vendor/jquery-3.6.0.min.js');
+    this.loadScript('assets/js/vendor/jquery-migrate-3.3.2.min.js');
+    this.loadScript('assets/js/plugins/slick.min.js');
+    this.loadScript('assets/js/plugins/jqueryui.min.js');
+    this.loadScript('assets/js/plugins/jquery.nice-select.min.js');
+    this.loadScript('assets/js/plugins/jquery.zoom.min.js');
+    this.loadScript('assets/js/plugins/imagesloaded.pkgd.min.js');
+    this.loadScript('assets/js/plugins/masonry.pkgd.min.js');
+    this.loadScript('assets/js/plugins/ajaxchimp.min.js');
+
+
+
+
+
   }
 
-  getForecasts() {
-    this.http.get<WeatherForecast[]>('/weatherforecast').subscribe(
-      (result) => {
-        this.forecasts = result;
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
+
+  loadScript(src: string) {
+    const script = this.renderer.createElement('script');
+    script.src = src;
+    script.type = 'text/javascript';
+    script.async = true;
+    this.renderer.appendChild(document.body, script);
   }
 
-  title = 'photographystore.client';
+
+
+
+
+
+
+
+
+
+
+
 }
