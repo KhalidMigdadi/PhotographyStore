@@ -9,6 +9,7 @@ import { CartComponent } from './User/cart/cart.component';
 import { LoginRegisterComponent } from './User/login-register/login-register.component';
 import { AboutUsComponent } from './User/about-us/about-us.component';
 import { ProfileComponent } from './User/profile/profile.component';
+import { DashboardComponent } from './Admin/dashboard/dashboard.component';
 
 
 const routes: Routes = [
@@ -19,6 +20,17 @@ const routes: Routes = [
   { path: "checkout", component: CheckoutComponent },
   { path: "cart", component: CartComponent },
   { path: "login", component: LoginRegisterComponent },
+  { path: "about", component: AboutUsComponent },
+  { path: "profile", component: ProfileComponent },
+
+
+  {
+    path: "dashboard", component: DashboardComponent, children: [
+
+
+
+  ] }
+
 
 
 
