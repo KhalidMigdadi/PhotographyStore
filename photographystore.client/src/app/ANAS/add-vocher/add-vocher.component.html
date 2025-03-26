@@ -1,0 +1,30 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h4 class="mb-0">Add Category</h4>
+        </div>
+        <div class="card-body">
+          <form #add="ngForm" (ngSubmit)="addvoch(add.value)">
+            <div class="mb-3">
+              <label for="categoryName" class="form-label">Category Name</label>
+              <input type="text" class="form-control" id="categoryName" name="name" ngModel required>
+            </div>
+            <div class="mb-3">
+              <label for="categoryImage" class="form-label">Category Image</label>
+              <input type="text" class="form-control" id="categoryImage" name="price" ngModel required>
+            </div>
+            <div class="mb-3">
+              <label for="categoryImage" class="form-label">Category Image</label>
+              <input type="text" class="form-control" id="categoryImage" name="image" ngModel required>
+            </div>
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary">Add vocher</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

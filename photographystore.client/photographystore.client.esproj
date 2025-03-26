@@ -9,6 +9,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="src\app\Admin\" />
+    <Folder Include="src\app\ANAS\" />
+    <Folder Include="src\app\ANAS_SER\" />
     <Folder Include="src\app\Service\" />
     <Folder Include="src\app\User\Khalid\" />
   </ItemGroup>
