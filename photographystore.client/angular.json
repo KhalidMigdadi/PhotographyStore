@@ -46,6 +46,7 @@
               "src/assets/css/helper.css",
               "src/assets/css/style.css"
 
+
             ],
             "scripts": [
               "src/assets/js/vendor/modernizr-3.11.2.min.js",
