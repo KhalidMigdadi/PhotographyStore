@@ -27,6 +27,7 @@ import { EditVocherComponent } from './ANAS/edit-vocher/edit-vocher.component';
 import { AddVocherComponent } from './ANAS/add-vocher/add-vocher.component';
 import { DashbordComponent } from './ANAS/dashbord/dashbord.component';
 import { DashboardComponent } from './Admin/dashboard/dashboard.component';
+import { FavoritComponent } from './User/favorit/favorit.component';
 
 
 @NgModule({
