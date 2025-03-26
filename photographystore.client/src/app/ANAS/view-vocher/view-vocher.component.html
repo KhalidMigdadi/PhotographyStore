@@ -1,0 +1,11 @@
+<div class="product-container">
+  <div class="card" *ngFor="let item of viewdata">
+    <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/184.webp" class="card-img-top" alt="Fissure in Sandstone" />
+    <div class="card-body">
+      <h5 class="card-title">{{item.name}}</h5>
+      <p class="card-text">id : {{item.id}}</p>
+      <a routerLink="/dash/editvocher/{{item.id}}" class="btn btn-primary" data-mdb-ripple-init>edit voch</a>
+      <button (click)="delete(item.id)" class="btn btn-danger" data-mdb-ripple-init>delete Vocher</button>
+    </div>
+  </div>
+</div>

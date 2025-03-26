@@ -1,0 +1,30 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h4 class="mb-0">Add Category</h4>
+        </div>
+        <div class="card-body">
+          <form #addcategory="ngForm" (ngSubmit)="updateproduct(addcategory.value)">
+            <div class="mb-3">
+              <label for="categoryName" class="form-label">product Name</label>
+              <input type="text" class="form-control" [(ngModel)]="datatoform.name" name="name" ngModel required>
+            </div>
+            <div class="mb-3">
+              <label for="categoryImage" class="form-label">product Image</label>
+              <input type="text" class="form-control" [(ngModel)]="datatoform.avatar" name="avatar" ngModel required>
+            </div>
+            <div class="mb-3">
+              <label for="categoryImage" class="form-label">product id</label>
+              <input type="text" class="form-control" [(ngModel)]="datatoform.categoryId" name="categoryId" ngModel readonly>
+            </div>
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary">Edit product</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

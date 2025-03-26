@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrl: './favorit.component.css'
 })
 export class FavoritComponent {
+ 
 
 }
