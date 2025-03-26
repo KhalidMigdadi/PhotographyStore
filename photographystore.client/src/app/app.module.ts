@@ -8,7 +8,6 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './User/home/home.component';
-import { FavoritComponent } from './User/favorit/favorit.component';
 import { ShopComponent } from './User/shop/shop.component';
 import { ContactUsComponent } from './User/contact-us/contact-us.component';
 import { CheckoutComponent } from './User/checkout/checkout.component';
@@ -27,6 +26,7 @@ import { ViewVocherComponent } from './ANAS/view-vocher/view-vocher.component';
 import { EditVocherComponent } from './ANAS/edit-vocher/edit-vocher.component';
 import { AddVocherComponent } from './ANAS/add-vocher/add-vocher.component';
 import { DashbordComponent } from './ANAS/dashbord/dashbord.component';
+import { DashboardComponent } from './Admin/dashboard/dashboard.component';
 
 
 @NgModule({
@@ -52,6 +52,7 @@ import { DashbordComponent } from './ANAS/dashbord/dashbord.component';
     EditVocherComponent,
     AddVocherComponent,
     DashbordComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule, HttpClientModule,
