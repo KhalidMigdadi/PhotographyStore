@@ -29,6 +29,7 @@ import { DashbordComponent } from './ANAS/dashbord/dashbord.component';
 import { DashboardComponent } from './Admin/dashboard/dashboard.component';
 import { FavoritComponent } from './User/favorit/favorit.component';
 import { DetailsComponent } from './User/details/details.component';
+import { ProductComponent } from './product/product.component';
 
 
 @NgModule({
@@ -56,6 +57,7 @@ import { DetailsComponent } from './User/details/details.component';
     DashbordComponent,
     DashboardComponent,
     DetailsComponent,
+    ProductComponent,
   ],
   imports: [
     BrowserModule, HttpClientModule,

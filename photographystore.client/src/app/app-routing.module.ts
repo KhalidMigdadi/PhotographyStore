@@ -22,6 +22,7 @@ import { EditProductComponent } from './ANAS/edit-product/edit-product.component
 import { ViewUserComponent } from './ANAS/view-user/view-user.component';
 import { DashboardComponent } from './Admin/dashboard/dashboard.component';
 import { DetailsComponent } from './User/details/details.component';
+import { ProductComponent } from './product/product.component';
 
 
 const routes: Routes = [
@@ -35,6 +36,9 @@ const routes: Routes = [
   { path: "about", component: AboutUsComponent },
   { path: "profile", component: ProfileComponent },
   { path: "details", component: DetailsComponent },
+  { path: "product", component: ProductComponent },
+
+
 
 
 
