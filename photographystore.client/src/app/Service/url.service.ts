@@ -6,19 +6,24 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UrlService {
-  constructor(private http: HttpClient) { }
+
+  private apiUrlFavorites = 'https://67e3d3032ae442db76d1c116.mockapi.io/favorite';
+  private apiUrlProducts = 'https://67ddf63c471aaaa74282f2a0.mockapi.io/product'; // استبدل برابط المنتجات
+
+
+  constructor(private _url: HttpClient) { }
   private userIdSubject = new BehaviorSubject<string | null>(null);
   userId$ = this.userIdSubject.asObservable();
 
 
   getUsers(): Observable<any> {
-    return this.http.get<any>("https://67d6ac02286fdac89bc2a229.mockapi.io/ShopUsers");
+    return this._url.get<any>("https://67d6ac02286fdac89bc2a229.mockapi.io/ShopUsers");
   }
 
   addUser(user: any): Observable<any> {
-    return this.http.post<any>("https://67d6ac02286fdac89bc2a229.mockapi.io/ShopUsers", user);
+    return this._url.post<any>("https://67d6ac02286fdac89bc2a229.mockapi.io/ShopUsers", user);
   }
- 
+
   //setUserId(id: string) {
   //  this.userIdSubject.next(id); // ✅ NO localStorage
   //}
@@ -40,18 +45,23 @@ export class UrlService {
     return this.userIdSubject.value;  // إرجاع القيمة الحالية للـ userId
   }
 
-  constructor(private _url: HttpClient) { }
+  //constructor(private _url: HttpClient) { }
 
 
   getproducts() {
 
     return this._url.get<any>("https://67ddf63c471aaaa74282f2a0.mockapi.io/product")
-
-  constructor(private _url: HttpClient) { }
-
-  getUsers() {
-    return this._url.get("https://67cea6ee125cd5af757b6514.mockapi.io/Users");
   }
+
+
+  //constructor(private _url: HttpClient) { }
+
+  //getUsers() {
+  //  return this._url.get("https://67cea6ee125cd5af757b6514.mockapi.io/Users");
+  //}
+
+
+
   getCategory() {
     return this._url.get("https://67cd64b6dd7651e464ee3d63.mockapi.io/categories");
   }
@@ -76,20 +86,28 @@ export class UrlService {
   getReviewsByProductId(productId: string) {
     return this._url.get(`https://67d3051b8bca322cc268e4dc.mockapi.io/reviews?productId=${productId}`);
   }
+
+
+
+  // جلب الـ userId من API
+  getUserIdFromAPI(): Observable<string> {
+    return this._url.get<string>("https://your-api-url.com/user-id");  // استبدل بـ API الفعلي
   }
 
+  Addproducts(data: any) {
 
-  Addproducts(data:any) {
-
-    return this._url.post<any>("https://67e3f94f2ae442db76d26687.mockapi.io/cartItem",data)
+    return this._url.post<any>("https://67e3f94f2ae442db76d26687.mockapi.io/cartItem", data)
   }
 
-
-  Addfavorite(favorite: any) {
-
-
-    return this._url.post<any>("https://67e3d3032ae442db76d1c116.mockapi.io/favorite", favorite)
+  // ✅ جلب قائمة المفضلة
+  getFavorites() {
+    return this._url.get<any[]>("https://67e3d3032ae442db76d1c116.mockapi.io/favorite");
   }
+
+  addToFavorite(item: any): Observable<any> {
+    return this._url.post<any>(this.apiUrlFavorites, item);
+  }
+
 
   ShowF() {
     return this._url.get<any>("https://67e3d3032ae442db76d1c116.mockapi.io/favorite")
@@ -97,9 +115,9 @@ export class UrlService {
 
   }
 
-  DeleteF(id: any ) {
+  DeleteF(id: any) {
 
-    return this._url.delete<any>(`https://67e3d3032ae442db76d1c116.mockapi.io/favorite/${id}` )
+    return this._url.delete<any>(`https://67e3d3032ae442db76d1c116.mockapi.io/favorite/${id}`)
   }
 
 
@@ -114,29 +132,29 @@ export class UrlService {
   private orderItemApi = 'https://67d7325f9d5e3a10152a46a6.mockapi.io/Order_Item';
   private productApi = 'https://67ddf63c471aaaa74282f2a0.mockapi.io/product';
   getOrders() {
-    return this.http.get<any[]>(this.orderApi);
+    return this._url.get<any[]>(this.orderApi);
   }
 
   getOrderItems() {
-    return this.http.get<any[]>(this.orderItemApi);
+    return this._url.get<any[]>(this.orderItemApi);
   }
 
   getProducts() {
-    return this.http.get<any[]>(this.productApi);
+    return this._url.get<any[]>(this.productApi);
   }
   ////////////////////////////////////////////////
   private apiUrl = 'https://67d6ac02286fdac89bc2a229.mockapi.io/ShopUsers';
 
   getUserById(id: string) {
-    return this.http.get<any>(`${this.apiUrl}/${id}`);
+    return this._url.get<any>(`${this.apiUrl}/${id}`);
   }
 
   updateUser(id: string, data: any) {
-    return this.http.put<any>(`${this.apiUrl}/${id}`, data);
+    return this._url.put<any>(`${this.apiUrl}/${id}`, data);
   }
 
 
 
- 
+
 
 }

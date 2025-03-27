@@ -483,3 +483,8 @@ h2, h3, h4 {
     margin-bottom: 20px;
   }
 
+
+
+#cards-container {
+    width: 100% !important;
+}

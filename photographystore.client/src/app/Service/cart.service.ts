@@ -115,7 +115,7 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError, map, Observable, throwError } from 'rxjs';
+import { catchError, map, Observable, throwError, BehaviorSubject  } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -145,10 +145,10 @@ export class CartService {
 
 
   // الحصول على userId من BehaviorSubject
-  getUserId(): string | null {
-    // تأكد من أن هذه الوظيفة ترجع userId بشكل صحيح من الـ BehaviorSubject
-    return localStorage.getItem('userId') || null;  // مثال بسيط إذا كنت تخزن userId في localStorage
-  }
+  //getUserId(): string | null {
+  //  // تأكد من أن هذه الوظيفة ترجع userId بشكل صحيح من الـ BehaviorSubject
+  //  return localStorage.getItem('userId') || null;  // مثال بسيط إذا كنت تخزن userId في localStorage
+  //}
 
   // ✅ تحديث كمية منتج معين في السلة
   updateQuantity(itemId: number, quantity: number): Observable<any> {

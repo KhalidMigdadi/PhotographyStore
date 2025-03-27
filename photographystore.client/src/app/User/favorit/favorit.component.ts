@@ -9,7 +9,7 @@ import { Data } from '@angular/router';
 })
 export class FavoritComponent {
 
-  constructor(private _htp: UrlService   ) { }
+  constructor(private _htp: UrlService) { }
 
 
   ngOnInit() {
@@ -17,19 +17,22 @@ export class FavoritComponent {
     this.showfavorite();
 
 
-    
+
   }
 
-  favorite:any
+  favorite: any
   showfavorite() {
+    const userId = localStorage.getItem('userId'); // استرجاع ID المستخدم
+    if (!userId) {
+      this.favorite = [];
+      return;
+    }
 
-
-    return this._htp.ShowF().subscribe((data) =>
-
-      this.favorite = data
-
-    )
+    this._htp.ShowF().subscribe((data) => {
+      this.favorite = data.filter((item: any) => item.userId === userId);
+    });
   }
+
 
 
   DeleteFav(id: any) {
@@ -42,6 +45,9 @@ export class FavoritComponent {
 
     });
   }
+
+
+
 
 
 }

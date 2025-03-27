@@ -197,6 +197,8 @@ import Swal from 'sweetalert2';  // تأكد من أن SweetAlert2 مثبت
 export class CartComponent implements OnInit {
   cartItems: any[] = [];
   totalPrice: number = 0;
+  cartItemCount: number = 0;  // إضافة متغير لحساب عدد العناصر في السلة
+
 
   constructor(
     private cartService: CartService,
@@ -224,15 +226,20 @@ export class CartComponent implements OnInit {
     // الآن نمرر userId إلى دالة getCartItems
     this.cartService.getCartItems(userId).subscribe(
       (items) => {
-        this.cartItems = items || []; // تأكد من أن `cartItems` ليست `undefined`
+        this.cartItems = items || [];  // تأكد من أن cartItems ليست undefined
         this.calculateTotal();
+        this.updateCartItemCount();  // تحديث عدد العناصر بعد تحميل السلة
       },
       (error) => {
         console.error('Error loading cart items:', error);
-        this.cartItems = []; // تعيين مصفوفة فارغة عند حدوث خطأ
+        this.cartItems = [];
+        this.cartItemCount = 0;  // تعيين عدد العناصر إلى 0 في حال حدوث خطأ
       }
     );
+  }
 
+  updateCartItemCount() {
+    this.cartItemCount = this.cartItems.reduce((sum, item) => sum + item.quantity, 0);  // حساب عدد العناصر
   }
 
   calculateTotal() {
