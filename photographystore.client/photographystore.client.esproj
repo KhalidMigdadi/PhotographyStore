@@ -8,10 +8,13 @@
     <BuildOutputFolder>$(MSBuildProjectDirectory)\dist\photographystore.client\browser\</BuildOutputFolder>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="src\app\User\Khalid\**" />
+    <TypeScriptConfiguration Remove="src\app\User\Khalid\**" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="src\app\Admin\" />
     <Folder Include="src\app\ANAS\" />
     <Folder Include="src\app\ANAS_SER\" />
     <Folder Include="src\app\Service\" />
-    <Folder Include="src\app\User\Khalid\" />
   </ItemGroup>
 </Project>

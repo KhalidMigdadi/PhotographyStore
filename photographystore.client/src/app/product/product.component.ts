@@ -5,7 +5,7 @@ import { CartService } from '../Service/cart.service';
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
-  styleUrl: './product.component.css'
+  styleUrls: ['./product.component.css'] // ✅ تصحيح الخطأ هنا
 })
 export class ProductComponent {
   products: any[] = [];
@@ -21,6 +21,13 @@ export class ProductComponent {
 
   // إضافة المنتج إلى السلة
   addToCart(product: any) {
-    this.cartService.addToCart(product);
+    this.cartService.addToCart(product).subscribe(
+      (response) => {
+        console.log('تمت إضافة المنتج بنجاح:', response);
+      },
+      (error) => {
+        console.error('خطأ أثناء إضافة المنتج:', error);
+      }
+    );
   }
 }
