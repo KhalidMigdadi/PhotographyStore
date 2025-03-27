@@ -28,6 +28,16 @@ export class NavbarComponent implements OnInit {
       // إذا لم يكن هناك userId، تأكد من أن المستخدم مسجل دخول
       return;
     }
+export class NavbarComponent implements OnInit {
+  isLoggedIn: boolean = false;
+
+  constructor(private shopUserService: UrlService) { }
+
+  ngOnInit(): void {
+    this.shopUserService.isLoggedIn$.subscribe((status: boolean) => {
+      this.isLoggedIn = status;
+    });
+  }
 
     // طلب عناصر السلة باستخدام userId
     this.cartService.getCartItems(userId).subscribe(
@@ -41,5 +51,8 @@ export class NavbarComponent implements OnInit {
         this.totalPrice = 0;
       }
     );
+  }
+  logout() {
+    this.shopUserService.logout();
   }
 }

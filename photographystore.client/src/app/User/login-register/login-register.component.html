@@ -294,29 +294,72 @@
           <h3 class="mb-15">Register Form</h3>
           <form #registerForm="ngForm" (ngSubmit)="onRegister(registerForm.value)">
             <div class="row">
+              <!-- Name -->
               <div class="col-lg-6 col-12 mb-20">
-                <input placeholder="Name" type="text" name="name" [(ngModel)]="registerData.name" required>
+                <input placeholder="Name"
+                       type="text"
+                       name="name"
+                       [(ngModel)]="registerData.name"
+                       required
+                       #name="ngModel" />
+                <div *ngIf="name.invalid && name.touched" class="text-danger">
+                  Name is required.
+                </div>
               </div>
 
+              <!-- Email -->
               <div class="col-lg-6 col-12 mb-20">
-                <input placeholder="Enter your email" type="email" name="email" [(ngModel)]="registerData.email" required>
+                <input placeholder="Enter your email"
+                       type="email"
+                       name="email"
+                       [(ngModel)]="registerData.email"
+                       required
+                       pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                       #email="ngModel" />
+                <div *ngIf="email.invalid && email.touched" class="text-danger">
+                  Please enter a valid email address.
+                </div>
               </div>
 
+              <!-- Password -->
               <div class="col-lg-6 col-12 mb-20">
-                <input placeholder="Password" type="password" name="password" [(ngModel)]="registerData.password" required>
+                <input placeholder="Password"
+                       type="password"
+                       name="password"
+                       [(ngModel)]="registerData.password"
+                       required
+                       pattern="^(?=.*[!@#$%^&amp;*(),.?&#34;:{}|&lt;&gt;])[A-Za-z\d!@#$%^&amp;*(),.?&#34;:{}|&lt;&gt;]{8,}$"
+                       #password="ngModel" />
+
+                <div *ngIf="password.invalid && password.touched" class="text-danger">
+                  Password must be at least 8 characters and contain a special character.
+                </div>
               </div>
 
+              <!-- Repeat Password -->
               <div class="col-lg-6 col-12 mb-20">
-                <input placeholder="Repeat Password" type="password" name="repeatPassword" [(ngModel)]="registerData.repeatPassword" required>
+                <input placeholder="Repeat Password"
+                       type="password"
+                       name="repeatPassword"
+                       [(ngModel)]="registerData.repeatPassword"
+                       required
+                       #repeatPassword="ngModel" />
+                <div *ngIf="registerData.repeatPassword !== registerData.password && repeatPassword.touched" class="text-danger">
+                  Passwords do not match.
+                </div>
               </div>
 
+              <!-- Submit Button -->
               <div class="col-12">
-                <button class="btn btn-round btn-lg" type="submit">Register</button>
+                <button class="btn btn-round btn-lg" type="submit" [disabled]="registerForm.invalid">
+                  Register
+                </button>
               </div>
             </div>
           </form>
         </div>
       </div>
+
 
 
     </div>
