@@ -1,307 +1,183 @@
-<!--Page Banner Section Start-->
-<div class="section section-wide">
-  <div class="container-fluid">
-
-    <!--Page Banner Start-->
-    <div class="page-banner">
-      <div class="container">
-        <h2 class="page-title">Camera Pro 440</h2>
-        <ul class="page-breadcrumb">
-          <li><a href="index.html">Home</a></li>
-          <li>Camera Pro 440</li>
-        </ul>
-      </div>
+<!-- Page Banner Section -->
+<div class="section section-wide" *ngIf="product">
+    <div class="container-fluid">
+        <div class="page-banner">
+            <div class="container">
+                <h2 class="page-title">{{ product.name }}</h2>
+                <ul class="page-breadcrumb">
+                    <li><a routerLink="/">Home</a></li>
+                    <li>{{ product.name }}</li>
+                </ul>
+            </div>
+        </div>
     </div>
-    <!--Page Banner End-->
-
-  </div>
 </div>
-<!--Page Banner Section End-->
-<!--Single Product Section Start-->
-<div class="section section-padding pb-0">
-  <div class="container">
 
-    <!--Single Product Wrapper Start-->
-    <div class="row mbn-20">
+<!-- Single Product Section -->
+<div class="section section-padding pb-0" *ngIf="product">
+    <div class="container">
+        <div class="row mbn-20">
 
-      <!--Single Product Images Start-->
-      <div class="col-lg-6 col-12 mb-20">
-        <div class="single-product-images">
+            <!-- Images -->
+            <div class="col-lg-6 col-12 mb-20">
+                <div class="single-product-images">
+                    <div class="single-product-image">
+                        <img *ngIf="product.img" [src]="product.img" alt="{{ product.name }}" class="img-fluid" loading="lazy" />
+                    </div>
+                </div>
+            </div>
 
-          <!--Single Product Image Start-->
-          <div class="single-product-image">
-            <img src="assets/images/products/single-product-1.jpg" alt="">
-            <img src="assets/images/products/single-product-2.jpg" alt="">
-            <img src="assets/images/products/single-product-3.jpg" alt="">
-            <img src="assets/images/products/single-product-4.jpg" alt="">
-            <img src="assets/images/products/single-product-5.jpg" alt="">
-          </div>
-          <!--Single Product Image End-->
-          <!--Single Product Thumb Start-->
-          <div class="single-product-thumb">
-            <img src="assets/images/products/single-product-thumb-1.jpg" alt="">
-            <img src="assets/images/products/single-product-thumb-2.jpg" alt="">
-            <img src="assets/images/products/single-product-thumb-3.jpg" alt="">
-            <img src="assets/images/products/single-product-thumb-4.jpg" alt="">
-            <img src="assets/images/products/single-product-thumb-5.jpg" alt="">
-          </div>
-          <!--Single Product Thumb End-->
+            <!-- Product Info -->
+            <div class="col-lg-6 col-12 mb-20">
+                <div class="single-product-content">
+                    <div class="title-price">
+                        <h2 class="title">{{ product.name }}</h2>
+                        <span class="price">{{ product.price }} JD</span>
+                    </div>
+
+                    <div class="ratting">
+                        <div class="inner">
+                            <span>
+                                <i class="fa" *ngFor="let i of [1,2,3,4,5]" [ngClass]="i <= (product.rating || 5) ? 'fa-star' : 'fa-star-o'"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="desc" *ngIf="product.specifications?.length">
+                        <h5>Specifications</h5>
+                        <ul>
+                            <li *ngFor="let spec of product.specifications">{{ spec }}</li>
+                        </ul>
+                    </div>
+
+                    <!-- <div class="quantity"> -->
+                    <!--     <h5>Quantity:</h5> -->
+                    <!--     <div class="pro-qty"> -->
+                    <!--         <input type="number" min="1" [(ngModel)]="product.quantity"> -->
+                    <!--     </div> -->
+                    <!-- </div> -->
+
+                    <div class="action">
+                        <a [routerLink]="['/cart']" class="action-btn action-cart">
+                            <i class="icofont-shopping-cart"></i>
+                        </a>
+                    </div>
+
+                    <div class="share">
+                        <h5>Share:</h5>
+                        <a [href]="facebookShareUrl" target="_blank"><i class="fa fa-facebook"></i></a>
+                        <a [href]="twitterShareUrl" target="_blank"><i class="fa fa-twitter"></i></a>
+                        <a [href]="instagramShareUrl" target="_blank"><i class="fa fa-instagram"></i></a>
+                        <a [href]="whatsappShareUrl" target="_blank"><i class="fa fa-whatsapp"></i></a>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="col-12 mt-30 mb-20">
+                <ul class="single-product-tab-list nav">
+                    <li><a href="#product-description" class="active" data-bs-toggle="tab">description</a></li>
+                    <li><a href="#product-specifications" data-bs-toggle="tab">specifications</a></li>
+                    <li><a href="#product-reviews" data-bs-toggle="tab">reviews</a></li>
+                </ul>
+
+                <div class="single-product-tab-content tab-content">
+                    <!-- Description -->
+                    <div class="tab-pane fade active show" id="product-description">
+                        <div class="row">
+                            <div class="single-product-description-content col-lg-8 col-12">
+                                <h4>About {{ product.name }}</h4>
+                                <p>{{ product.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Specifications -->
+                    <div class="tab-pane fade" id="product-specifications">
+                        <div class="single-product-specification">
+                            <ul>
+                                <li *ngFor="let spec of product.specifications">{{ spec }}</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Reviews -->
+                    <div class="tab-pane fade" id="product-reviews">
+                        <div class="product-ratting-wrap">
+                            <div class="pro-avg-ratting">
+                                <h4>4.5 <span>(Overall)</span></h4>
+                                <span>Based on 9 Comments</span>
+                            </div>
+                            <div class="ratting-list">
+                                <div class="sin-list" *ngFor="let stars of [5,4,3,2,1]">
+                                    <div class="d-flex align-items-center">
+                                        <div class="ratting-star">
+                                            <i class="fa" *ngFor="let s of [].constructor(stars)" [ngClass]="'fa-star'"></i>
+                                            <i class="fa" *ngFor="let s of [].constructor(5 - stars)" [ngClass]="'fa-star-o'"></i>
+                                        </div>
+                                        <span style="margin-left: 8px;">({{ stars === 5 ? 5 : stars === 4 ? 3 : stars === 3 ? 1 : 0 }})</span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="rattings-wrapper">
+                                <div class="sin-rattings" *ngFor="let review of reviews">
+                                    <div class="ratting-author">
+                                        <!-- <h4>{{ review.name }}</h4> -->
+                                        <div class="ratting-star">
+                                            <i class="fa" *ngFor="let s of [].constructor(review.rating)" [ngClass]="'fa-star'"></i>
+                                            <i class="fa" *ngFor="let s of [].constructor(5 - review.rating)" [ngClass]="'fa-star-o'"></i>
+                                            <span>({{ review.rating }})</span>
+                                        </div>
+                                    </div>
+                                    <!-- <p>{{ review.comment }}</p> -->
+                                </div>
+                            </div>
+
+
+                            <form (ngSubmit)="submitReview(product.id)">
+                                <div class="ratting-form row">
+                                    <!-- النجوم -->
+                                    <div class="col-12 mb-15">
+                                        <h5>Rating:</h5>
+                                        <div class="ratting-star">
+                                            <i class="fa"
+                                               *ngFor="let star of [1,2,3,4,5]"
+                                               [ngClass]="newReview.rating >= star ? 'fa-star' : 'fa-star-o'"
+                                               (click)="setRating(star)"
+                                               style="cursor:pointer; color: black;"></i>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-6 col-12 mb-20">
+                                        <label for="name">Name:</label>
+                                        <input id="name" name="name" [(ngModel)]="newReview.name" placeholder="Name" type="text" required>
+                                    </div>
+                                    <div class="col-md-6 col-12 mb-20">
+                                        <label for="email">Email:</label>
+                                        <input id="email" name="email" [(ngModel)]="newReview.email" placeholder="Email" type="email" required>
+                                    </div>
+                                    <div class="col-12 mb-20">
+                                        <label for="your-review">Your Review:</label>
+                                        <textarea id="your-review" name="comment" [(ngModel)]="newReview.comment" placeholder="Write a review" required></textarea>
+                                    </div>
+                                    <div class="col-12">
+                                        <button type="submit" class="btn">Add Review</button>
+                                    </div>
+                                    <br />
+                                    <br />
+                                </div>
+                            </form>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
-      </div>
-      <!--Single Product Image End-->
-      <!--Single Product Content Start-->
-      <div class="col-lg-6 col-12 mb-20">
-        <div class="single-product-content">
-
-          <!--Title & Price Start-->
-          <div class="title-price">
-
-            <h2 class="title">Camera Pro 440</h2>
-
-            <span class="price">$295.99</span>
-
-          </div>
-          <!--Title & Price End-->
-          <!--Ratting Start-->
-          <div class="ratting">
-            <div class="inner">
-              <span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span>
-            </div>
-          </div>
-          <!--Ratting End-->
-          <!--Description Start-->
-          <div class="desc">
-            <h5>Specifications</h5>
-            <ul>
-              <li>Multimedia Speakers</li>
-              <li>120 watts peak</li>
-              <li>Front-facing subwoofer</li>
-              <li>Records 4K/30fps (60mbps), 1080p/120fps, 720p/240fps video</li>
-              <li>Built-in 2.19″ LCD touchscreen</li>
-              <li>Gorilla Glass Retina</li>
-            </ul>
-          </div>
-          <!--Description End-->
-          <!--Quantity Start-->
-          <div class="quantity">
-            <h5>Quantity:</h5>
-            <div class="pro-qty"><input type="text" value="1"></div>
-          </div>
-          <!--Quantity End-->
-          <!--Action Start-->
-          <div class="action">
-            <a href="#" class="action-btn action-cart"><i class="icofont-shopping-cart"></i></a>
-            <a href="#" class="action-btn action-wishlist"><i class="icofont-heart"></i></a>
-            <a href="#" class="action-btn action-compare"><i class="icofont-refresh"></i></a>
-          </div>
-          <!--Action End-->
-          <!--Share Start-->
-          <div class="share">
-            <h5>Share:</h5>
-            <a href="#"><i class="fa fa-facebook"></i></a>
-            <a href="#"><i class="fa fa-twitter"></i></a>
-            <a href="#"><i class="fa fa-instagram"></i></a>
-            <a href="#"><i class="fa fa-google-plus"></i></a>
-          </div>
-          <!--Share End-->
-
-        </div>
-      </div>
-      <!--Single Product Content End-->
-      <!--Single Product Description, Specifications & Reviews Start-->
-      <div class="col-12 mt-30 mb-20">
-
-        <ul class="single-product-tab-list nav">
-          <li><a href="#product-description" class="active" data-bs-toggle="tab">description</a></li>
-          <li><a href="#product-specifications" data-bs-toggle="tab" class="">specifications</a></li>
-          <li><a href="#product-reviews" data-bs-toggle="tab" class="">reviews</a></li>
-        </ul>
-
-        <div class="single-product-tab-content tab-content">
-          <div class="tab-pane fade active show" id="product-description">
-
-            <div class="row">
-              <div class="single-product-description-content col-lg-8 col-12">
-                <h4>Introducing Camera Pro 440</h4>
-                <p>enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia res eos qui ratione voluptatem sequi Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora in</p>
-                <h4>Stylish Design</h4>
-                <p>enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia res eos qui ratione voluptatem sequi Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci veli</p>
-              </div>
-            </div>
-
-          </div>
-          <div class="tab-pane fade" id="product-specifications">
-            <div class="single-product-specification">
-              <ul>
-                <li>Full HD Camcorder</li>
-                <li>Dual Video Recording</li>
-                <li>X type battery operation</li>
-                <li>Full HD Camcorder</li>
-                <li>Multimedia Speakers</li>
-                <li>120 watts peak</li>
-                <li>Front-facing subwoofer</li>
-                <li>Records 4K/30fps (60mbps), 1080p/120fps, 720p/240fps video</li>
-                <li>Built-in 2.19″ LCD touchscreen</li>
-                <li>Gorilla Glass Retina</li>
-              </ul>
-            </div>
-          </div>
-          <div class="tab-pane fade" id="product-reviews">
-
-            <!--Product Rating Form Wrapper Start-->
-            <div class="product-ratting-wrap">
-
-              <!--Average Rating Start-->
-              <div class="pro-avg-ratting">
-                <h4>4.5 <span>(Overall)</span></h4>
-                <span>Based on 9 Comments</span>
-              </div>
-              <!--Average Rating End-->
-              <!--Rating List Start-->
-              <div class="ratting-list">
-                <div class="sin-list">
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <span>(5)</span>
-                </div>
-                <div class="sin-list">
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star-o"></i>
-                  <span>(3)</span>
-                </div>
-                <div class="sin-list">
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star-o"></i>
-                  <i class="fa fa-star-o"></i>
-                  <span>(1)</span>
-                </div>
-                <div class="sin-list">
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star-o"></i>
-                  <i class="fa fa-star-o"></i>
-                  <i class="fa fa-star-o"></i>
-                  <span>(0)</span>
-                </div>
-                <div class="sin-list">
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star-o"></i>
-                  <i class="fa fa-star-o"></i>
-                  <i class="fa fa-star-o"></i>
-                  <i class="fa fa-star-o"></i>
-                  <span>(0)</span>
-                </div>
-              </div>
-              <!--Rating List End-->
-              <!--Rating Wrapper Start-->
-              <div class="rattings-wrapper">
-
-                <!--Single Rating Start-->
-                <div class="sin-rattings">
-                  <div class="ratting-author">
-                    <h4>Cristopher Lee</h4>
-                    <div class="ratting-star">
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <span>(5)</span>
-                    </div>
-                  </div>
-                  <p>enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia res eos qui ratione voluptatem sequi Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci veli</p>
-                </div>
-                <!--Single Rating End-->
-                <!--Single Rating Start-->
-                <div class="sin-rattings">
-                  <div class="ratting-author">
-                    <h4>Nirob Khan</h4>
-                    <div class="ratting-star">
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <span>(5)</span>
-                    </div>
-                  </div>
-                  <p>enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia res eos qui ratione voluptatem sequi Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci veli</p>
-                </div>
-                <!--Single Rating End-->
-                <!--Single Rating Start-->
-                <div class="sin-rattings">
-                  <div class="ratting-author">
-                    <h4>Zenaul Islam</h4>
-                    <div class="ratting-star">
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <span>(5)</span>
-                    </div>
-                  </div>
-                  <p>enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia res eos qui ratione voluptatem sequi Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci veli</p>
-                </div>
-                <!--Single Rating End-->
-
-              </div>
-              <!--Rating Wrapper End-->
-              <!--Rating Form Wrapper Start-->
-              <div class="ratting-form-wrapper">
-                <h4>Add your Comments</h4>
-                <form action="#">
-                  <div class="ratting-form row">
-                    <div class="col-12 mb-15">
-                      <h5>Rating:</h5>
-                      <div class="ratting-star">
-                        <i class="fa fa-star-o"></i>
-                        <i class="fa fa-star-o"></i>
-                        <i class="fa fa-star-o"></i>
-                        <i class="fa fa-star-o"></i>
-                        <i class="fa fa-star-o"></i>
-                      </div>
-                    </div>
-                    <div class="col-md-6 col-12 mb-20">
-                      <label for="name">Name:</label>
-                      <input id="name" placeholder="Name" type="text">
-                    </div>
-                    <div class="col-md-6 col-12 mb-20">
-                      <label for="email">Email:</label>
-                      <input id="email" placeholder="Email" type="text">
-                    </div>
-                    <div class="col-12 mb-20">
-                      <label for="your-review">Your Review:</label>
-                      <textarea name="review" id="your-review" placeholder="Write a review"></textarea>
-                    </div>
-                    <div class="col-12">
-                      <input value="add review" type="submit" class="btn">
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <!--Rating Form Wrapper End-->
-
-            </div>
-            <!--Product Rating Form Wrapper End-->
-
-          </div>
-        </div>
-
-      </div>
-      <!--Single Product Description, Specifications & Reviews End-->
-
     </div>
-    <!--Single Product Wrapper End-->
-
-  </div>
 </div>

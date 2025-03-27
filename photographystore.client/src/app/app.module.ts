@@ -29,6 +29,7 @@ import { DashboardComponent } from './Admin/dashboard/dashboard.component';
 import { FavoritComponent } from './User/favorit/favorit.component';
 import { DetailsComponent } from './User/details/details.component';
 import { ProductComponent } from './product/product.component';
+import { SoundComponent } from './sound/sound.component';
 
 
 @NgModule({
@@ -58,6 +59,7 @@ import { ProductComponent } from './product/product.component';
     DashboardComponent,
     DetailsComponent,
     ProductComponent,
+    SoundComponent,
   ],
   imports: [
     BrowserModule, HttpClientModule,
