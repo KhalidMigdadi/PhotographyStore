@@ -4,11 +4,10 @@ import { NgForm } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-login-register',
   templateUrl: './login-register.component.html',
-  styleUrl: './login-register.component.css'
+  styleUrls: ['./login-register.component.css']
 })
 export class LoginRegisterComponent {
   loginData = {
@@ -23,20 +22,26 @@ export class LoginRegisterComponent {
     repeatPassword: ''
   };
 
+  isLoggedIn: boolean = false; // ✅ Login status flag
+
   constructor(private shopUserService: UrlService, private router: Router) { }
+
   ngOnInit() {
     this.shopUserService.userId$.subscribe(id => {
       console.log('Logged-in user ID:', id);
+      this.isLoggedIn = !!id; // ✅ Set login status based on userId presence
     });
   }
 
+  // ✅ LOGIN FUNCTION
   onLogin(form: NgForm) {
     if (form.invalid) return;
 
     const { email, password } = this.loginData;
 
-    // Check if the login is for the admin
+    // Admin login
     if (email === 'admin@gmail.com' && password === 'admin') {
+      this.isLoggedIn = true;
       Swal.fire({
         icon: 'success',
         title: 'Admin Login',
@@ -44,19 +49,21 @@ export class LoginRegisterComponent {
         timer: 2000,
         showConfirmButton: false
       }).then(() => {
-        this.router.navigate(['/dash']); // or /dashboard if that’s your route
+        this.router.navigate(['/dash']);
       });
       return;
     }
 
     // Regular user login
     this.shopUserService.getUsers().subscribe(users => {
-      const user: any = users.find((u: { email: string; password: string; }) =>
-        u.email === email && u.password === password
+      const user: any = users.find(
+        (u: { email: string; password: string }) =>
+          u.email === email && u.password === password
       );
 
-      if (user) {      // Save user ID in BehaviorSubject
-        this.shopUserService.setUserId(user.id); // <-- ADD THIS LINE
+      if (user) {
+        this.shopUserService.setUserId(user.id);
+        this.isLoggedIn = true;
 
         Swal.fire({
           icon: 'success',
@@ -77,7 +84,7 @@ export class LoginRegisterComponent {
     });
   }
 
-
+  // ✅ REGISTER FUNCTION
   onRegister(form: NgForm) {
     if (form.invalid || this.registerData.password !== this.registerData.repeatPassword) {
       Swal.fire({
@@ -88,27 +95,44 @@ export class LoginRegisterComponent {
       return;
     }
 
-    const newUser = {
-      name: this.registerData.name,
-      email: this.registerData.email,
-      password: this.registerData.password,
-      avatar: '', // You can add logic for random avatar
-      address: '',
-      paymentMethod: '',
-      cardId: '',
-      cardDate: new Date().toISOString(),
-      cvv: '',
-      phone:''
+    // Check if email already exists
+    this.shopUserService.getUsers().subscribe(users => {
+      const emailExists = users.some(
+        (user: any) =>
+          user.email.toLowerCase() === this.registerData.email.toLowerCase()
+      );
 
-    };
+      if (emailExists) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Email Already Registered',
+          text: 'Please use a different email address.'
+        });
+        return;
+      }
 
-    this.shopUserService.addUser(newUser).subscribe(res => {
-      Swal.fire({
-        icon: 'success',
-        title: 'Registration Complete',
-        text: 'You have successfully registered!'
+      // Proceed with registration
+      const newUser = {
+        name: this.registerData.name,
+        email: this.registerData.email,
+        password: this.registerData.password,
+        avatar: '',
+        address: '',
+        paymentMethod: '',
+        cardId: '',
+        cardDate: new Date().toISOString(),
+        cvv: '',
+        phone: ''
+      };
+
+      this.shopUserService.addUser(newUser).subscribe(() => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Registration Complete',
+          text: 'You have successfully registered!'
+        });
+        form.reset();
       });
-      form.reset();
     });
   }
 }

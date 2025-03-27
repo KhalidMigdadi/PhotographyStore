@@ -425,16 +425,26 @@
                     <small class="text-muted">Must be 3 digits</small>
                   </div>
 
-                  Phone Number (Orange Money Only)
                   <div class="col-md-6 mb-3" *ngIf="paymentData.paymentMethod === 'Orange Money'">
                     <label for="phone">Phone Number</label>
-                    <input type="tel"
-                           id="phone"
-                           class="form-control"
-                           name="phone"
-                           [(ngModel)]="paymentData.phone"
-                           required />
+                    <div class="input-group">
+                      <span class="input-group-text">077</span>
+                      <input type="text"
+                             id="phone"
+                             class="form-control"
+                             name="phone"
+                             maxlength="7"
+                             minlength="7"
+                             pattern="^[0-9]{7}$"
+                             [(ngModel)]="paymentData.phone"
+                             required
+                             #phone="ngModel" />
+                    </div>
+                    <div *ngIf="phone.invalid && phone.touched" class="text-danger">
+                      Please enter exactly 7 digits (the full number will be 077XXXXXXX).
+                    </div>
                   </div>
+
 
                   <div class="col-12 mt-2">
                     <button type="submit" class="btn btn-primary">
