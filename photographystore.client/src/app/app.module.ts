@@ -2,7 +2,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -29,6 +28,7 @@ import { DashbordComponent } from './ANAS/dashbord/dashbord.component';
 import { DashboardComponent } from './Admin/dashboard/dashboard.component';
 import { FavoritComponent } from './User/favorit/favorit.component';
 import { DetailsComponent } from './User/details/details.component';
+import { ProductComponent } from './product/product.component';
 
 
 @NgModule({
@@ -40,7 +40,6 @@ import { DetailsComponent } from './User/details/details.component';
     FooterComponent,
     HomeComponent,
     ShopComponent,
-    FavoritComponent,
     ContactUsComponent,
     CheckoutComponent,
     CartComponent,
@@ -58,6 +57,7 @@ import { DetailsComponent } from './User/details/details.component';
     DashbordComponent,
     DashboardComponent,
     DetailsComponent,
+    ProductComponent,
   ],
   imports: [
     BrowserModule, HttpClientModule,
