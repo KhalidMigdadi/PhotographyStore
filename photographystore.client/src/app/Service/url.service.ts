@@ -19,13 +19,28 @@ export class UrlService {
     return this.http.post<any>("https://67d6ac02286fdac89bc2a229.mockapi.io/ShopUsers", user);
   }
  
-  setUserId(id: string) {
-    this.userIdSubject.next(id); // ✅ NO localStorage
+  //setUserId(id: string) {
+  //  this.userIdSubject.next(id); // ✅ NO localStorage
+  //}
+
+  //getUserId(): string | null {
+  //  return this.userIdSubject.value;
+  //}
+
+
+
+
+  // دالة لتحديث userId في BehaviorSubject
+  setUserId(userId: string) {
+    this.userIdSubject.next(userId);  // تحديث الـ userId
   }
 
+  // دالة للحصول على userId الحالي
   getUserId(): string | null {
-    return this.userIdSubject.value;
+    return this.userIdSubject.value;  // إرجاع القيمة الحالية للـ userId
   }
+
+
 
   logout() {
     this.userIdSubject.next(null);
