@@ -34,6 +34,8 @@ import { SoundComponent } from './sound/sound.component';
 
 @NgModule({
   declarations: [
+    AboutUsComponent,
+    ProfileComponent,
     AppComponent,
     NavbarComponent,
     FooterComponent,
