@@ -22,6 +22,7 @@ import { EditProductComponent } from './ANAS/edit-product/edit-product.component
 import { ViewUserComponent } from './ANAS/view-user/view-user.component';
 import { DashboardComponent } from './Admin/dashboard/dashboard.component';
 import { DetailsComponent } from './User/details/details.component';
+import { ProductComponent } from './product/product.component';
 
 
 const routes: Routes = [
@@ -34,12 +35,20 @@ const routes: Routes = [
   { path: "login", component: LoginRegisterComponent },
   { path: "about", component: AboutUsComponent },
   { path: "profile", component: ProfileComponent },
-  { path: 'details/:id', component: DetailsComponent },
+  { path: "details", component: DetailsComponent },
+  { path: "product", component: ProductComponent },
 
 
 
 
-  {path: "dashboard", component: DashboardComponent },
+
+  {
+    path: "dashboard", component: DashboardComponent, children: [
+
+
+
+  ] },
+  {  path: "dashboard", component: DashboardComponent },
 
 
 
