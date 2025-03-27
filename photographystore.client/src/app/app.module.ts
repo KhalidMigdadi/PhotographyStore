@@ -33,6 +33,8 @@ import { DetailsComponent } from './User/details/details.component';
 
 @NgModule({
   declarations: [
+    AboutUsComponent,
+    ProfileComponent,
     AppComponent,
     NavbarComponent,
     FooterComponent,
