@@ -4,9 +4,10 @@
     <img src="{{item.img}}" class="card-img-top" alt="Fissure in Sandstone" />
     <div class="card-body">
       <h5 class="card-title">{{item.name}}</h5>
-      <p class="card-text">id : {{item.price}}</p>
-      <a routerLink="/dash/editproduct/{{item.id}}" class="btn btn-primary" data-mdb-ripple-init>edit product</a>
-      <button (click)="delete(item.id)" class="btn btn-danger" data-mdb-ripple-init>delete product</button>
+      <p class="card-text">Price : {{item.price}}</p>
+      <p class="card-text">product id: {{item.id}}</p>
+      <a routerLink="/dash/editproduct/{{item.id}}" class="btn btn-primary" id="blue" data-mdb-ripple-init>edit product</a>
+      <button (click)="delete(item.id)" class="btn btn-danger" id="red" data-mdb-ripple-init>delete product</button>
 
     </div>
   </div>

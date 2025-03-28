@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UrlService } from '../Service/url.service';
 import { CartService } from '../Service/cart.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -29,7 +30,7 @@ import { CartService } from '../Service/cart.service';
 //      return;
 //    }
 
-  //}
+//}
 
 //this.cartService.getCartItems(userId).subscribe(
 //  (items) => {
@@ -45,20 +46,45 @@ import { CartService } from '../Service/cart.service';
 //  }
 
 export class NavbarComponent implements OnInit {
+  cartItemCount: number = 0; // المتغير لعدد العناصر في السلة
+  totalPrice: number = 0; // المتغير لإجمالي السعر
   isLoggedIn: boolean = false;
-  constructor(private shopUserService: UrlService) { }
-  ngOnInit(): void {
+
+  constructor(
+    private shopUserService: UrlService,
+    private cartService: CartService,
+    private router: Router
+  ) { }
+
+  ngOnInit() {
     this.shopUserService.isLoggedIn$.subscribe((status: boolean) => {
       this.isLoggedIn = status;
+      this.loadCart();
     });
 
+    // تحديث العدد بشكل مباشر عند حدوث أي تغيير في السلة
+    this.cartService.cartItemCount$.subscribe((count) => {
+      this.cartItemCount = count;
+    });
   }
 
+  loadCart() {
+    const userId = this.shopUserService.getUserId();
+    if (userId) {
+      this.cartService.getCartItems(userId).subscribe((items) => {
+        this.cartItemCount = items.length;
+        this.totalPrice = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-    // طلب عناصر السلة باستخدام userId
+        // تحديث العدد في `cartService`
+        this.cartService.updateCartItemCount(items.length);
+      });
+    }
+  }
+
+  // طلب عناصر السلة باستخدام userId
   logout() {
     this.shopUserService.logout();
-}
+  }
 }
 
 

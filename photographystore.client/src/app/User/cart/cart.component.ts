@@ -188,6 +188,8 @@ import { CartService } from '../../Service/cart.service';
 import { UrlService } from '../../Service/url.service';  // استيراد UrlService
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';  // تأكد من أن SweetAlert2 مثبت
+import { HttpClient } from '@angular/common/http';  // استيراد HttpClient
+
 
 @Component({
   selector: 'app-cart',
@@ -198,16 +200,26 @@ export class CartComponent implements OnInit {
   cartItems: any[] = [];
   totalPrice: number = 0;
   cartItemCount: number = 0;  // إضافة متغير لحساب عدد العناصر في السلة
+  voucherCode: string = '';  // تخزين الكود المدخل
+  discount: number = 0;  // تخزين الخصم
+  originalPrice: number = 0; // السعر الأصلي قبل الخصم
+  discountAmount: number = 0;
 
 
   constructor(
     private cartService: CartService,
     private router: Router,
-    private urlService: UrlService  // إضافة UrlService هنا
+    private urlService: UrlService , // إضافة UrlService هنا
+    private http: HttpClient
   ) { }
 
   ngOnInit(): void {
-    this.loadCart();  // تحميل السلة عندما يتم تحميل المكون
+    this.loadCart();
+
+    // الاشتراك في cartItemCount$ لمتابعة التحديثات
+    //this.cartService.cartItemCount$.subscribe(() => {
+    //  this.loadCart(); // إعادة تحميل السلة تلقائيًا عند أي تغيير
+    //});
   }
 
   loadCart() {
@@ -242,6 +254,56 @@ export class CartComponent implements OnInit {
     this.cartItemCount = this.cartItems.reduce((sum, item) => sum + item.quantity, 0);  // حساب عدد العناصر
   }
 
+
+  // في أعلى الكومبوننت
+
+
+  // تعديل دالة applyVoucher()
+  applyVoucher() {
+    const userId = this.urlService.getUserId();
+    this.http.get<any>(`https://67d2b4a390e0670699bec396.mockapi.io/Voucher-peruser?Userid=${userId}&name=${this.voucherCode}`)
+      .subscribe(
+        (voucher) => {
+          if (voucher.length > 0) {
+            const validVoucher = voucher[0];
+
+            if (validVoucher && validVoucher.discount) {
+              this.discount = validVoucher.discount;
+              this.originalPrice = this.totalPrice; // حفظ السعر الأصلي
+
+              if (this.discount > 0 && this.discount <= 100) {
+                this.discountAmount = this.totalPrice * (this.discount / 100);
+                this.totalPrice = this.totalPrice - this.discountAmount;
+              }
+
+              Swal.fire('Success', 'Voucher applied successfully!', 'success');
+            }
+          } else {
+            Swal.fire('Error', 'Voucher not found!', 'error');
+          }
+        },
+        (error) => {
+          Swal.fire('Error', 'Could not validate voucher. Please try again later.', 'error');
+        }
+      );
+  }
+
+
+
+  // دالة لحساب المجموع الكلي للسلة والسعر الأصلي
+  updateCartSummary() {
+    // حساب السعر الأصلي لجميع العناصر في السلة
+    this.originalPrice = this.cartItems.reduce((sum, item) => sum + (item.originalPrice * item.quantity), 0);
+
+    // حساب السعر الإجمالي بعد الخصم
+    this.totalPrice = this.cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  }
+
+
+
+
+
+
   calculateTotal() {
     this.totalPrice = this.cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   }
@@ -262,13 +324,7 @@ export class CartComponent implements OnInit {
     }
   }
 
-  removeItem(itemId: number, event: Event) {
-    event.preventDefault();
-    this.cartService.removeItem(itemId).subscribe(() => {
-      this.cartItems = this.cartItems.filter(cartItem => cartItem.id !== itemId);
-      this.calculateTotal();
-    });
-  }
+  
 
   clearCart() {
     this.cartService.clearCart().subscribe(() => {
@@ -281,8 +337,9 @@ export class CartComponent implements OnInit {
     this.router.navigate(['/checkout']);
   }
 
+
   addToCart(product: any) {
-    const userId = this.urlService.getUserId();  // الحصول على userId من UrlService
+    const userId = this.urlService.getUserId();
     if (!userId) {
       Swal.fire({
         icon: 'error',
@@ -292,7 +349,7 @@ export class CartComponent implements OnInit {
       return;
     }
 
-    const userIdNumber = Number(userId);  // التأكد من تحويل userId إلى عدد إذا لزم الأمر.
+    const userIdNumber = Number(userId);
     if (isNaN(userIdNumber)) {
       Swal.fire({
         icon: 'error',
@@ -302,12 +359,12 @@ export class CartComponent implements OnInit {
       return;
     }
 
-    // الآن نمرر userId إلى دالة addToCart
     if (!isNaN(userIdNumber)) {
       this.cartService.addToCart(product, userIdNumber).subscribe(
         (response) => {
           console.log('تمت إضافة المنتج بنجاح:', response);
-          this.loadCart();
+          this.loadCart();  // إعادة تحميل السلة بعد الإضافة
+          this.cartService.updateCartItemCount(this.cartItems.length); // تحديث العدد بعد التعديل
         },
         (error) => {
           console.error('خطأ أثناء إضافة المنتج:', error);
@@ -316,6 +373,16 @@ export class CartComponent implements OnInit {
     } else {
       console.error('User ID is not a valid number');
     }
-
   }
+
+  removeItem(itemId: number, event: Event) {
+    event.preventDefault();
+    this.cartService.removeItem(itemId).subscribe(() => {
+      this.cartItems = this.cartItems.filter(cartItem => cartItem.id !== itemId);
+      this.calculateTotal();
+      this.cartService.updateCartItemCount(this.cartItems.length);  // تحديث العدد بعد الحذف
+    });
+  }
+
+
 }

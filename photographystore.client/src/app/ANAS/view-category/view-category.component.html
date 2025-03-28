@@ -1,11 +1,11 @@
 <div class="product-container">
   <div class="card" *ngFor="let item of Data">
-    <img src="{{item.img}}" class="card-img-top" alt="Fissure in Sandstone" />
+    <!--<img src="{{item.img}}" class="card-img-top" alt="Fissure in Sandstone" />-->
     <div class="card-body">
       <h5 class="card-title">{{item.name}}</h5>
       <p class="card-text">id : {{item.id}}</p>
-      <a routerLink="/dash/editcategory/{{item.id}}" class="btn btn-primary" data-mdb-ripple-init>edit category</a>
-      <button (click)="delete(item.id)" class="btn btn-danger" data-mdb-ripple-init>delete category</button>
+      <a routerLink="/dash/editcategory/{{item.id}}" class="btn btn-primary" id="blue" data-mdb-ripple-init>edit category</a>
+      <button (click)="delete(item.id)" class="btn btn-danger" id="red" data-mdb-ripple-init>delete category</button>
     </div>
   </div>
 </div>

@@ -123,7 +123,12 @@ import { catchError, map, Observable, throwError, BehaviorSubject  } from 'rxjs'
 export class CartService {
   private apiUrlCartItem = 'https://67e3f94f2ae442db76d26687.mockapi.io/cartItem';
   private apiUrlCart = 'https://67e3f94f2ae442db76d26687.mockapi.io/cart';
-  private userId: number = 1; // افتراض معرّف المستخدم
+  private apiUrlVoucher = 'https://67d2b4a390e0670699bec396.mockapi.io/Voucher-peruser';
+
+  private userId: number = 1;
+
+  private cartItemCount = new BehaviorSubject<number>(0); // عدد عناصر السلة كـ Observable
+  cartItemCount$ = this.cartItemCount.asObservable(); // هذا سيتم الاستماع له في `navbar`
 
   constructor(private http: HttpClient) { }
 
@@ -131,6 +136,18 @@ export class CartService {
   getCartItems(userId: string): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrlCartItem}?userId=${userId}`);
   }
+
+
+
+  updateCartItemCount(count: number) {
+    this.cartItemCount.next(count); // تحديث العدد عند تغيير البيانات
+  }
+
+
+
+
+
+
 
 
   // ✅ إضافة منتج جديد إلى السلة مع userId
@@ -163,6 +180,13 @@ export class CartService {
   // ✅ مسح السلة بالكامل
   clearCart(): Observable<any> {
     return this.http.delete<any>(`${this.apiUrlCartItem}?userId=${this.userId}`);
+  }
+
+  // تحقق من الكود
+  getVoucherForUser(userId: string, voucherCode: string): Observable<any> {
+    return this.http.get<any[]>(`${this.apiUrlVoucher}?userId=${userId}&voucherCode=${voucherCode}`).pipe(
+      map((vouchers) => vouchers.length > 0 ? vouchers[0] : null)
+    );
   }
 }
 

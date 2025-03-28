@@ -13,7 +13,7 @@ export class ViewCategoryComponent {
 
 
   delete(id: any) {
-    debugger
+   
     this.ser.deleteCategory(id).subscribe((data) => {
       alert("delete done");
       this.getCategory()

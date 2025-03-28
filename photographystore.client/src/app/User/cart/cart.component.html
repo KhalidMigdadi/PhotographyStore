@@ -231,7 +231,7 @@
               </thead>
               <tbody>
                 <tr *ngFor="let item of cartItems">
-                  <td><img src="assets/images/products/cart-product-1.jpg" alt="Product"></td>
+                  <td><img src="{{item.img}}" alt="Product" width="50px"></td>
                   <td>{{ item.name }}</td>
                   <td><span>{{ item.price | currency }}</span></td>
 
@@ -266,47 +266,52 @@
       </form>
       <!--Cart Table End-->
 
-      <div class="row mbn-40">
+        <div class="row mbn-40">
 
-        <!--Calculate Shipping & Discount Coupon Start-->
-        <div class="col-lg-6 col-12 mb-40">
+          <!--Calculate Shipping & Discount Coupon Start-->
+          <div class="col-lg-6 col-12 mb-40">
 
-          <!--Discount Coupon-->
-          <div class="discount-coupon">
-            <h4>Discount Coupon Code</h4>
-            <form action="#">
-              <div class="row mbn-25">
-                <div class="col-sm-6 col-12 mb-25">
-                  <input type="text" placeholder="Coupon Code">
+            <!--Discount Coupon-->
+            <div class="discount-coupon">
+              <h4>Discount Coupon Code</h4>
+              <form (ngSubmit)="applyVoucher()">
+                <div class="row mbn-25">
+                  <div class="col-sm-6 col-12 mb-25">
+                    <input [(ngModel)]="voucherCode" name="voucherCode" type="text" placeholder="Enter Coupon Code">
+                  </div>
+                  <div class="col-sm-6 col-12 mb-25">
+                    <input class="btn" type="submit" value="Apply Code">
+                  </div>
                 </div>
-                <div class="col-sm-6 col-12 mb-25">
-                  <input class="btn" type="submit" value="Apply Code">
-                </div>
+              </form>
+            </div>
+          </div>
+          <!--Calculate Shipping & Discount Coupon End-->
+          <!-- Cart Summary Start -->
+          <div class="col-lg-6 col-12 mb-40">
+            <div class="cart-summary">
+              <div class="cart-summary-wrap">
+                <h4>Cart Summary</h4>
+
+                <!-- إضافة السعر الأصلي هنا -->
+                <h5>Original Price <span>{{ originalPrice | currency }}</span></h5> <!-- السعر الأصلي هنا -->
+
+                <h5>Grand Total <span>{{ totalPrice | currency }}</span></h5>
               </div>
-            </form>
-          </div>
-        </div>
-        <!--Calculate Shipping & Discount Coupon End-->
-        <!--Cart Summary Start-->
-        <div class="col-lg-6 col-12 mb-40">
-          <div class="cart-summary">
-            <div class="cart-summary-wrap">
-              <h4>Cart Summary</h4>
-    
-              <h5>Grand Total <span>
-  {{ totalPrice | currency }}
-</span></h5>
-            </div>
-            <div class="cart-summary-button">
-              <!-- في CartComponent -->
-              <button  class="btn" (click)="goToCheckout()">Checkout</button>
-              <button class="btn">Update Cart</button>
+              <div class="cart-summary-button">
+                <!-- في CartComponent -->
+                <button class="btn" (click)="goToCheckout()">Checkout</button>
+                <button class="btn">Update Cart</button>
+              </div>
             </div>
           </div>
-        </div>
-        <!--Cart Summary End-->
+          <!-- Cart Summary End -->
 
-      </div>
+
+
+
+
+        </div>
 
     </div>
   </div>
