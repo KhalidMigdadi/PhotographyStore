@@ -1,20 +1,20 @@
-   <!--Offcanvas Cart Section Start-->
-<div class="offcanvas-cart-section">
-  <div class="inner">
+<!--Offcanvas Cart Section Start-->
+<!--<div class="offcanvas-cart-section">
+  <div class="inner">-->
 
     <!--Offcanvas Cart Top Start-->
-    <div class="offcanvas-cart-top">
+    <!--<div class="offcanvas-cart-top">
       <button class="offcanvas-cart-close">Close Cart <i class="icofont-close-line"></i></button>
-    </div>
+    </div>-->
     <!--Offcanvas Cart Top End-->
     <!--Offcanvas Cart Wrapper Start-->
-    <div class="offcanvas-cart-wrap">
+    <!--<div class="offcanvas-cart-wrap">-->
 
       <!--Offcanvas Cart Start-->
-      <div class="offcanvas-cart">
+      <!--<div class="offcanvas-cart">-->
 
         <!--Offcanvas Cart Item Start-->
-        <div class="offcanvas-cart-item">
+        <!--<div class="offcanvas-cart-item">
           <a href="single-product.html" class="image"><img src="assets/images/products/product-1.jpg" alt=""></a>
           <div class="content">
             <a href="single-product.html" class="title">Camera Pro 440</a>
@@ -22,10 +22,10 @@
             <span class="qty">Qty: 01</span>
           </div>
           <button class="cart-item-remove"><i class="icofont-ui-delete"></i></button>
-        </div>
+        </div>-->
         <!--Offcanvas Cart Item End-->
         <!--Offcanvas Cart Item Start-->
-        <div class="offcanvas-cart-item">
+        <!--<div class="offcanvas-cart-item">
           <a href="single-product.html" class="image"><img src="assets/images/products/product-2.jpg" alt=""></a>
           <div class="content">
             <a href="single-product.html" class="title">Red Digital Camera</a>
@@ -33,10 +33,10 @@
             <span class="qty">Qty: 01</span>
           </div>
           <button class="cart-item-remove"><i class="icofont-ui-delete"></i></button>
-        </div>
+        </div>-->
         <!--Offcanvas Cart Item End-->
         <!--Offcanvas Cart Item Start-->
-        <div class="offcanvas-cart-item">
+        <!--<div class="offcanvas-cart-item">
           <a href="single-product.html" class="image"><img src="assets/images/products/product-3.jpg" alt=""></a>
           <div class="content">
             <a href="single-product.html" class="title">Axor Digital camera</a>
@@ -44,23 +44,23 @@
             <span class="qty">Qty: 01</span>
           </div>
           <button class="cart-item-remove"><i class="icofont-ui-delete"></i></button>
-        </div>
+        </div>-->
         <!--Offcanvas Cart Item End-->
 
-      </div>
+      <!--</div>-->
       <!--Offcanvas Cart End-->
       <!--Offcanvas Cart Footer Start-->
-      <div class="offcanvas-cart-footer">
+      <!--<div class="offcanvas-cart-footer">
         <h5 class="total">Total: <span class="amount">$1160</span></h5>
         <a href="#" class="btn checkout-btn">Check out</a>
-      </div>
+      </div>-->
       <!--Offcanvas Cart Footer End-->
 
-    </div>
+    <!--</div>-->
     <!--Offcanvas Cart Wrapper End-->
 
-  </div>
-</div>
+  <!--</div>
+</div>-->
 <!--Offcanvas Cart Section End-->
 <!--Offcanvas Mobile Menu Section Start-->
 <div class="offcanvas-mobile-menu">
@@ -172,7 +172,7 @@
         <div class="offcanvas-contact-widget">
           <ul class="header-contact-info">
             <li><i class="fa fa-phone"></i> <a href="tel://12452456012">(1245) 2456 012 </a></li>
-            <li><i class="fa fa-envelope"></i> <a href="mailto:info@yourdomain.com">info&#64;yourdomain.com</a></li>
+            <li><i class="fa fa-envelope"></i> <a href="mailto:info@yourdomain.com">infoyourdomain.com</a></li>
           </ul>
         </div>
         <!--Off Canvas Widget Social Start-->
@@ -230,124 +230,89 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td><a href="single-product.html"><img src="assets/images/products/cart-product-1.jpg" alt="Product"></a></td>
-                  <td><a href="single-product.html">Camera Pro 440</a></td>
-                  <td><span>$295.99</span></td>
+                <tr *ngFor="let item of cartItems">
+                  <td><img src="assets/images/products/cart-product-1.jpg" alt="Product"></td>
+                  <td>{{ item.name }}</td>
+                  <td><span>{{ item.price | currency }}</span></td>
+
+                  <!-- تعديل الكمية -->
                   <td>
-                    <div class="pro-qty"><input type="text" value="1"></div>
+                    <div class="pro-qty">
+                      <button (click)="decreaseQuantity(item)">-</button>
+                      <input type="text" [value]="item.quantity" readonly>
+                      <button (click)="increaseQuantity(item)">+</button>
+                    </div>
                   </td>
-                  <td><span>$295.99</span></td>
-                  <td><a href="#"><i class="fa fa-trash-o"></i></a></td>
+
+                  <!-- المجموع الفرعي لكل منتج -->
+                  <td><span>{{ (item.price * item.quantity) | currency }}</span></td>
+
+                  <!-- حذف المنتج -->
+                  <td><a href="#" (click)="removeItem(item.id, $event)"><i class="fa fa-trash-o"></i></a></td>
                 </tr>
+
+                <!-- عرض المجموع الكلي -->
                 <tr>
-                  <td><a href="single-product.html"><img src="assets/images/products/cart-product-2.jpg" alt="Product"></a></td>
-                  <td><a href="single-product.html">Red Digital Camera</a></td>
-                  <td><span>$275.99</span></td>
-                  <td>
-                    <div class="pro-qty"><input type="text" value="2"></div>
-                  </td>
-                  <td><span>$551.98</span></td>
-                  <td><a href="#"><i class="fa fa-trash-o"></i></a></td>
+                  <td colspan="4"></td>
+                  <td><strong>Total: {{ totalPrice | currency }}</strong></td>
+                  <td></td>
                 </tr>
-                <tr>
-                  <td><a href="single-product.html"><img src="assets/images/products/cart-product-3.jpg" alt="Product"></a></td>
-                  <td><a href="single-product.html">Axor Digital camera</a></td>
-                  <td><span>$295.99</span></td>
-                  <td>
-                    <div class="pro-qty"><input type="text" value="1"></div>
-                  </td>
-                  <td><span>$295.99</span></td>
-                  <td><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                </tr>
-                <tr>
-                  <td><a href="single-product.html"><img src="assets/images/products/cart-product-4.jpg" alt="Product"></a></td>
-                  <td><a href="single-product.html">Neko Digital Camera</a></td>
-                  <td><span>$199.99</span></td>
-                  <td>
-                    <div class="pro-qty"><input type="text" value="1"></div>
-                  </td>
-                  <td><span>$199.99</span></td>
-                  <td><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                </tr>
+
+
+
               </tbody>
-            </table>
-          </div>
-        </form>
-        <!--Cart Table End-->
+          </table>
+      </div>
+      </form>
+      <!--Cart Table End-->
 
-        <div class="row mbn-40">
+      <div class="row mbn-40">
 
-          <!--Calculate Shipping & Discount Coupon Start-->
-          <div class="col-lg-6 col-12 mb-40">
-            <!--Calculate Shipping-->
-            <div class="calculate-shipping mb-40">
-              <h4>Calculate Shipping</h4>
-              <form action="#">
-                <div class="row mbn-25">
-                  <div class="col-sm-6 col-12 mb-25">
-                    <select class="nice-select">
-                      <option>Bangladesh</option>
-                      <option>China</option>
-                      <option>country</option>
-                      <option>India</option>
-                      <option>Japan</option>
-                    </select>
-                  </div>
-                  <div class="col-sm-6 col-12 mb-25">
-                    <select class="nice-select">
-                      <option>Dhaka</option>
-                      <option>Barisal</option>
-                      <option>Khulna</option>
-                      <option>Comilla</option>
-                      <option>Chittagong</option>
-                    </select>
-                  </div>
-                  <div class="col-sm-6 col-12 mb-25">
-                    <input type="text" placeholder="Postcode / Zip">
-                  </div>
-                  <div class="col-sm-6 col-12 mb-25">
-                    <input class="btn" type="submit" value="Estimate">
-                  </div>
+        <!--Calculate Shipping & Discount Coupon Start-->
+        <div class="col-lg-6 col-12 mb-40">
+
+          <!--Discount Coupon-->
+          <div class="discount-coupon">
+            <h4>Discount Coupon Code</h4>
+            <form action="#">
+              <div class="row mbn-25">
+                <div class="col-sm-6 col-12 mb-25">
+                  <input type="text" placeholder="Coupon Code">
                 </div>
-              </form>
-            </div>
-            <!--Discount Coupon-->
-            <div class="discount-coupon">
-              <h4>Discount Coupon Code</h4>
-              <form action="#">
-                <div class="row mbn-25">
-                  <div class="col-sm-6 col-12 mb-25">
-                    <input type="text" placeholder="Coupon Code">
-                  </div>
-                  <div class="col-sm-6 col-12 mb-25">
-                    <input class="btn" type="submit" value="Apply Code">
-                  </div>
+                <div class="col-sm-6 col-12 mb-25">
+                  <input class="btn" type="submit" value="Apply Code">
                 </div>
-              </form>
-            </div>
-          </div>
-          <!--Calculate Shipping & Discount Coupon End-->
-          <!--Cart Summary Start-->
-          <div class="col-lg-6 col-12 mb-40">
-            <div class="cart-summary">
-              <div class="cart-summary-wrap">
-                <h4>Cart Summary</h4>
-                <p>Sub Total <span>$1,343.95‬</span></p>
-                <p>Shipping Cost <span>$00.00</span></p>
-                <h5>Grand Total <span>$1,343.95‬</span></h5>
               </div>
-              <div class="cart-summary-button">
-                <button class="btn">Checkout</button>
-                <button class="btn">Update Cart</button>
-              </div>
-            </div>
+            </form>
           </div>
-          <!--Cart Summary End-->
-
         </div>
+        <!--Calculate Shipping & Discount Coupon End-->
+        <!--Cart Summary Start-->
+        <div class="col-lg-6 col-12 mb-40">
+          <div class="cart-summary">
+            <div class="cart-summary-wrap">
+              <h4>Cart Summary</h4>
+    
+              <h5>Grand Total <span>
+  {{ totalPrice | currency }}
+</span></h5>
+            </div>
+            <div class="cart-summary-button">
+              <!-- في CartComponent -->
+              <button  class="btn" (click)="goToCheckout()">Checkout</button>
+              <button class="btn">Update Cart</button>
+            </div>
+          </div>
+        </div>
+        <!--Cart Summary End-->
 
       </div>
+
     </div>
   </div>
-</div><!-- Cart Section End -->
+</div>
+</div>
+<!-- Cart Section End -->
+
+
+

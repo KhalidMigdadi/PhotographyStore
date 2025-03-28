@@ -15,43 +15,35 @@ interface WeatherForecast {
 })
 export class AppComponent implements OnInit {
 
-  constructor(private renderer: Renderer2 ) { }
+  constructor(private renderer: Renderer2) { }
+
   ngOnInit() {
-    this.loadScript('assets/js/main.js');
-    this.loadScript('assets/js/vendor/modernizr-3.11.2.min.js');
-    this.loadScript('assets/js/vendor/jquery-3.6.0.min.js');
-    this.loadScript('assets/js/vendor/jquery-migrate-3.3.2.min.js');
-    this.loadScript('assets/js/plugins/slick.min.js');
-    this.loadScript('assets/js/plugins/jqueryui.min.js');
-    this.loadScript('assets/js/plugins/jquery.nice-select.min.js');
-    this.loadScript('assets/js/plugins/jquery.zoom.min.js');
-    this.loadScript('assets/js/plugins/imagesloaded.pkgd.min.js');
-    this.loadScript('assets/js/plugins/masonry.pkgd.min.js');
-    this.loadScript('assets/js/plugins/ajaxchimp.min.js');
-
-
-
-
-
-  }
-
-
-  loadScript(src: string) {
-    const script = this.renderer.createElement('script');
-    script.src = src;
-    script.type = 'text/javascript';
-    script.async = true;
-    this.renderer.appendChild(document.body, script);
+    this.loadScripts([
+      'assets/js/main.js',
+      'assets/js/vendor/modernizr-3.11.2.min.js',
+      'assets/js/vendor/jquery-3.6.0.min.js',
+      'assets/js/plugins/jqueryui.min.js',
+      'assets/js/vendor/jquery-migrate-3.3.2.min.js',
+      'assets/js/plugins/slick.min.js',
+      'assets/js/plugins/jquery.nice-select.min.js',
+      'assets/js/plugins/jquery.zoom.min.js',
+      'assets/js/plugins/imagesloaded.pkgd.min.js',
+      'assets/js/plugins/masonry.pkgd.min.js',
+      'assets/js/plugins/ajaxchimp.min.js'
+    ]);
   }
 
 
 
-
-
-
-
-
-
+  loadScripts(scripts: string[]) {
+    scripts.forEach(script => {
+      let scriptElement = document.createElement('script');
+      scriptElement.src = script;
+      scriptElement.type = 'text/javascript';
+      scriptElement.async = true;
+      document.body.appendChild(scriptElement);
+    });
+  }
 
 
 

@@ -215,57 +215,152 @@
     <div class="row mbn-40">
 
       <!-- Login Form Start -->
+      <!--<div class="col-lg-4 col-md-6 col-12 me-auto mb-40">
+    <div class="login-register-form">
+      <h3 class="mb-15">Already a Member?</h3>
+      <form action="#">
+        <div class="row">
+          <div class="col-12 mb-20">
+            <input placeholder="Email or Username" type="email">
+          </div>
+
+          <div class="col-12 mb-20">
+            <input placeholder="Password" type="password">
+          </div>
+
+          <div class="col-12">
+            <button class="btn btn-round btn-lg">Login</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>-->
+      <!-- Login Form End -->
+      <!-- Register Form Start -->
+      <!--<div class="col-lg-7 col-md-6 col-12 mb-40">
+    <div class="login-register-form">
+      <h3 class="mb-15">Register Form</h3>
+      <form action="#">
+        <div class="row">
+          <div class="col-lg-6 col-12 mb-20">
+            <input placeholder="Name" type="text">
+          </div>
+
+          <div class="col-lg-6 col-12 mb-20">
+            <input placeholder="Enter your email" type="email">
+          </div>
+
+          <div class="col-lg-6 col-12 mb-20">
+            <input placeholder="Password" type="password">
+          </div>
+
+          <div class="col-lg-6 col-12 mb-20">
+            <input placeholder="Repeat Password" type="password">
+          </div>
+
+          <div class="col-12">
+            <button class="btn btn-round btn-lg">Register</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>-->
+      <!-- Register Form End -->
+      <!-- Login Form -->
       <div class="col-lg-4 col-md-6 col-12 me-auto mb-40">
         <div class="login-register-form">
           <h3 class="mb-15">Already a Member?</h3>
-          <form action="#">
+          <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm.value)">
             <div class="row">
               <div class="col-12 mb-20">
-                <input placeholder="Email or Username" type="email">
+                <input placeholder="Email" type="email" name="email" [(ngModel)]="loginData.email" required>
               </div>
 
               <div class="col-12 mb-20">
-                <input placeholder="Password" type="password">
+                <input placeholder="Password" type="password" name="password" [(ngModel)]="loginData.password" required>
               </div>
 
               <div class="col-12">
-                <button class="btn btn-round btn-lg">Login</button>
+                <button class="btn btn-round btn-lg" type="submit">Login</button>
               </div>
             </div>
           </form>
         </div>
       </div>
-      <!-- Login Form End -->
-      <!-- Register Form Start -->
+
+      <!-- Register Form -->
       <div class="col-lg-7 col-md-6 col-12 mb-40">
         <div class="login-register-form">
           <h3 class="mb-15">Register Form</h3>
-          <form action="#">
+          <form #registerForm="ngForm" (ngSubmit)="onRegister(registerForm.value)">
             <div class="row">
+              <!-- Name -->
               <div class="col-lg-6 col-12 mb-20">
-                <input placeholder="Name" type="text">
+                <input placeholder="Name"
+                       type="text"
+                       name="name"
+                       [(ngModel)]="registerData.name"
+                       required
+                       #name="ngModel" />
+                <div *ngIf="name.invalid && name.touched" class="text-danger">
+                  Name is required.
+                </div>
               </div>
 
+              <!-- Email -->
               <div class="col-lg-6 col-12 mb-20">
-                <input placeholder="Enter your email" type="email">
+                <input placeholder="Enter your email"
+                       type="email"
+                       name="email"
+                       [(ngModel)]="registerData.email"
+                       required
+                       pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                       #email="ngModel" />
+                <div *ngIf="email.invalid && email.touched" class="text-danger">
+                  Please enter a valid email address.
+                </div>
               </div>
 
+              <!-- Password -->
               <div class="col-lg-6 col-12 mb-20">
-                <input placeholder="Password" type="password">
+                <input placeholder="Password"
+                       type="password"
+                       name="password"
+                       [(ngModel)]="registerData.password"
+                       required
+                       pattern="^(?=.*[!@#$%^&amp;*(),.?&#34;:{}|&lt;&gt;])[A-Za-z\d!@#$%^&amp;*(),.?&#34;:{}|&lt;&gt;]{8,}$"
+                       #password="ngModel" />
+
+                <div *ngIf="password.invalid && password.touched" class="text-danger">
+                  Password must be at least 8 characters and contain a special character.
+                </div>
               </div>
 
+              <!-- Repeat Password -->
               <div class="col-lg-6 col-12 mb-20">
-                <input placeholder="Repeat Password" type="password">
+                <input placeholder="Repeat Password"
+                       type="password"
+                       name="repeatPassword"
+                       [(ngModel)]="registerData.repeatPassword"
+                       required
+                       #repeatPassword="ngModel" />
+                <div *ngIf="registerData.repeatPassword !== registerData.password && repeatPassword.touched" class="text-danger">
+                  Passwords do not match.
+                </div>
               </div>
 
+              <!-- Submit Button -->
               <div class="col-12">
-                <button class="btn btn-round btn-lg">Register</button>
+                <button class="btn btn-round btn-lg" type="submit" [disabled]="registerForm.invalid">
+                  Register
+                </button>
               </div>
             </div>
           </form>
         </div>
       </div>
-      <!-- Register Form End -->
+
+
 
     </div>
   </div>
