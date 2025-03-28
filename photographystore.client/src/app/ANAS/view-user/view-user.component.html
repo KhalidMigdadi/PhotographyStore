@@ -1,6 +1,6 @@
 <div class="product-container">
   <div class="card" *ngFor="let item of Data">
-    <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/184.webp" class="card-img-top" alt="Fissure in Sandstone" />
+    <img src="{{item.avatar}}" class="card-img-top" alt="Fissure in Sandstone" />
     <div class="card-body">
       <h5 class="card-title">{{item.name}}</h5>
       <p class="card-text">id : {{item.id}}</p>

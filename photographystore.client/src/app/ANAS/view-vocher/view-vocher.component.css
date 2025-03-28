@@ -39,14 +39,19 @@
   color: #555;
 }
 
-.btn-primary {
+/*.btn-primary {
   color: white;
   text-decoration: none;
   padding: 8px 15px;
   border-radius: 5px;
   display: inline-block;
-}
+}*/
 
-  .btn-primary:hover {
+/*  .btn-primary:hover {
     background-color: #0056b3;
-  }
+  }*/
+
+
+
+#blue{background-color:darkblue}
+#red{background-color:darkred}
