@@ -98,7 +98,7 @@ export class ShopComponent implements OnInit {
 
   // ✅ جلب المنتجات من API
   showdata() {
-    this.urlService.getproducts().subscribe((data) => {
+    this.urlService.getProducts().subscribe((data) => {
       this.product = data;
       this.allProducts = data;
     });
