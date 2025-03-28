@@ -10,7 +10,13 @@ import { Router } from '@angular/router';
 export class AddVocherComponent {
   constructor(private ser: AnasSerService, private rou: Router) { }
 
-  ngOnInit() { }
+
+  user:any
+  ngOnInit() {
+    this.ser.getUsers().subscribe((data) => {
+      this.user=data
+    })
+  }
 
 
   addvoch(data: any) {

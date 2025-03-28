@@ -3,32 +3,37 @@
     <div class="col-md-6">
       <div class="card">
         <div class="card-header bg-primary text-white">
-          <h4 class="mb-0">Add Category</h4>
+          <h4 class="mb-0">Add Product</h4>
         </div>
         <div class="card-body">
           <form #addproduct="ngForm" (ngSubmit)="addpro(addproduct.value)">
             <div class="mb-3">
-              <label for="categoryName" class="form-label">Category Name</label>
+              <label for="categoryName" class="form-label">Product Name</label>
               <input type="text" class="form-control" id="categoryName" name="name" ngModel required>
             </div>
             <div class="mb-3">
-              <label for="categoryImage" class="form-label">Category Image</label>
+              <label for="categoryImage" class="form-label">product Price</label>
               <input type="text" class="form-control" id="categoryImage" name="price" ngModel required>
             </div>
             <div class="mb-3">
-              <label for="categoryImage" class="form-label">Category Image</label>
+              <label for="categoryImage" class="form-label">product Image</label>
               <input type="text" class="form-control" id="categoryImage" name="img" ngModel required>
             </div>
-
+            <div class="mb-3">
+              <label for="categoryImage2" class="form-label">product description</label>
+              <input type="text" class="form-control" id="categoryImage2" name="description" ngModel required>
+            </div>
+            <div class="mb-3">
+              <label for="categoryImage3" class="form-label">product specifications 1</label>
+              <input type="text" class="form-control" id="categoryImage3" name="specifications" ngModel required>
+            </div>
             <div class="mb-3">
               <select class="form-select " aria-label="Default select example" name="categoryId" id="categoryId" ngModel>
                 <option *ngFor="let item of idcate" value="{{item.id}}">{{item.name}}</option>
               </select>
             </div>
-
-
             <div class="d-grid gap-2">
-              <button type="submit" class="btn btn-primary">Add Category</button>
+              <button type="submit" class="btn btn-primary">Add Product</button>
             </div>
           </form>
         </div>
