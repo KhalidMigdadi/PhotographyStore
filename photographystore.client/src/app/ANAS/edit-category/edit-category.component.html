@@ -3,7 +3,7 @@
     <div class="col-md-6">
       <div class="card">
         <div class="card-header bg-primary text-white">
-          <h4 class="mb-0">Add Category</h4>
+          <h4 class="mb-0">Edit Category</h4>
         </div>
         <div class="card-body">
           <form #addcategory="ngForm" (ngSubmit)="updatecategory(addcategory.value)">
@@ -14,6 +14,10 @@
             <div class="mb-3">
               <label for="categoryImage" class="form-label">Category Image</label>
               <input type="text" class="form-control" [(ngModel)]="datatoform.img" name="img" ngModel required>
+            </div>
+            <div class="mb-3">
+              <label for="categoryImage1" class="form-label">Category description</label>
+              <input type="text" class="form-control" id="categoryImage1" [(ngModel)]="datatoform.description" name="description" ngModel required>
             </div>
             <div class="d-grid gap-2">
               <button type="submit" class="btn btn-primary">Edit Category</button>

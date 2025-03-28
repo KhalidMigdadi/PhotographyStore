@@ -3,22 +3,31 @@
     <div class="col-md-6">
       <div class="card">
         <div class="card-header bg-primary text-white">
-          <h4 class="mb-0">Add Category</h4>
+          <h4 class="mb-0">Add Vocher</h4>
         </div>
         <div class="card-body">
           <form #add="ngForm" (ngSubmit)="addvoch(add.value)">
             <div class="mb-3">
-              <label for="categoryName" class="form-label">Category Name</label>
+              <label for="categoryName" class="form-label">Vocher Name</label>
               <input type="text" class="form-control" id="categoryName" name="name" ngModel required>
             </div>
             <div class="mb-3">
-              <label for="categoryImage" class="form-label">Category Image</label>
+              <label for="categoryImage" class="form-label">Vocher Price</label>
               <input type="text" class="form-control" id="categoryImage" name="price" ngModel required>
             </div>
             <div class="mb-3">
-              <label for="categoryImage" class="form-label">Category Image</label>
-              <input type="text" class="form-control" id="categoryImage" name="image" ngModel required>
+              <label for="categoryImage" class="form-label">Vocher quantity</label>
+              <input type="text" class="form-control" id="categoryImage" name="quantity" ngModel required>
             </div>
+
+            <div class="mb-3">
+              <label for="categoryImage" class="form-label">Users </label>
+              <select class="form-select " aria-label="Default select example" name="Userid" id="categoryId" ngModel>
+                <option *ngFor="let item of user" value="{{item.id}}">{{item.name}}</option>
+              </select>
+            </div>
+
+
             <div class="d-grid gap-2">
               <button type="submit" class="btn btn-primary">Add vocher</button>
             </div>

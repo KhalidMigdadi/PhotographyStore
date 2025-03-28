@@ -1,1 +1,30 @@
-<p>edit-vocher works!</p>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h4 class="mb-0">edit Vocher</h4>
+        </div>
+        <div class="card-body">
+          <form #edit="ngForm" (ngSubmit)="edittvoch(edit.value)">
+            <div class="mb-3">
+              <label for="categoryName" class="form-label">Vocher Name</label>
+              <input type="text" class="form-control" [(ngModel)]="datatoview.name" name="name" ngModel required>
+            </div>
+            <div class="mb-3">
+              <label for="categoryImage" class="form-label">Vocher Price</label>
+              <input type="text" class="form-control" [(ngModel)]="datatoview.price" name="price" ngModel required>
+            </div>
+            <div class="mb-3">
+              <label for="categoryImage" class="form-label">Vocher quantity</label>
+              <input type="text" class="form-control" [(ngModel)]="datatoview.quantity" name="quantity" ngModel readonly>
+            </div>
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary">Edit product</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -22,7 +22,7 @@ export class EditVocherComponent {
     let id = this.rou.snapshot.paramMap.get("id");
     this.ser.editVocher(id, data).subscribe(() => {
       alert("edit done");
-      this.rout.navigate(['/dash/viewvoch']);
+      this.rout.navigate(['/dash/viewvocher']);
 
     })
   }

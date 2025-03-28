@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +11,10 @@ export class AnasSerService {
 
 
   getUsers() {
-    return this.anas.get("https://67cea6ee125cd5af757b6514.mockapi.io/Users");
+    return this.anas.get("https://67d6ac02286fdac89bc2a229.mockapi.io/ShopUsers");
   }
   postUsers(data: any) {
-    return this.anas.post("https://67cea6ee125cd5af757b6514.mockapi.io/Users", data);
+    return this.anas.post("https://67d6ac02286fdac89bc2a229.mockapi.io/ShopUsers", data);
   }
   getCategory() {
     return this.anas.get("https://67ddf63c471aaaa74282f2a0.mockapi.io/category");
@@ -40,16 +41,16 @@ export class AnasSerService {
     return this.anas.get(`https://67ddf63c471aaaa74282f2a0.mockapi.io/product/${id}`)
   }
   viewVocher() {
-    return this.anas.get("https://67d9ae8e35c87309f529c67f.mockapi.io/sign/voucher");
+    return this.anas.get("https://67d2b4a390e0670699bec396.mockapi.io/Voucher-peruser");
   }
   addVocher(data: any) {
-    return this.anas.post("https://67d9ae8e35c87309f529c67f.mockapi.io/sign/voucher", data);
+    return this.anas.post("https://67d2b4a390e0670699bec396.mockapi.io/Voucher-peruser", data);
   }
   editVocher(id: any, data: any) {
-    return this.anas.put(`https://67d9ae8e35c87309f529c67f.mockapi.io/sign/voucher/${id}`, data);
+    return this.anas.put(`https://67d2b4a390e0670699bec396.mockapi.io/Voucher-peruser/${id}`, data);
   }
   viewVocherByID(id: any) {
-    return this.anas.get(`https://67d9ae8e35c87309f529c67f.mockapi.io/sign/voucher/${id}`);
+    return this.anas.get(`https://67d2b4a390e0670699bec396.mockapi.io/Voucher-peruser/${id}`);
   }
   deleteCategory(id: any) {
     return this.anas.delete(`https://67ddf63c471aaaa74282f2a0.mockapi.io/category/${id}`);
@@ -58,7 +59,7 @@ export class AnasSerService {
     return this.anas.delete(`https://67ddf63c471aaaa74282f2a0.mockapi.io/product/${id}`);
   }
   deleteVocher(id: any) {
-    return this.anas.delete(`https://67d9ae8e35c87309f529c67f.mockapi.io/sign/voucher/${id}`);
+    return this.anas.delete(`https://67d2b4a390e0670699bec396.mockapi.io/Voucher-peruser/${id}`);
   }
 
 
