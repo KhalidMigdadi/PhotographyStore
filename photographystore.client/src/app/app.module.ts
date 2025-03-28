@@ -60,6 +60,7 @@ import { SoundComponent } from './sound/sound.component';
     DetailsComponent,
     ProductComponent,
     SoundComponent,
+    FavoritComponent
   ],
   imports: [
     BrowserModule, HttpClientModule,

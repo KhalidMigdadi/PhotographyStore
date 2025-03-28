@@ -200,14 +200,14 @@
       <div class="hero-item hero-bg-1">
         <div class="hero-content">
           <h2 class="title">Capture your <br>Beautiful moments</h2>
-          <a href="#" class="btn">Buy Now</a>
+          <a routerLink="/shop" class="btn">Buy Now</a>
         </div>
       </div>
 
       <div class="hero-item hero-bg-2">
         <div class="hero-content">
-          <h2 class="title">Capture your <br>Beautiful moments</h2>
-          <a href="#" class="btn">Buy Now</a>
+          <h2 class="title">Freeze time <br>in a photo</h2>
+          <a routerLink="/shop" class="btn">Buy Now</a>
         </div>
       </div>
 
@@ -254,7 +254,7 @@
     <div class="row mbn-40">
 
       <!--Section Title Start-->
-      <div class="col-12">
+      <!--<div class="col-12">
         <div class="row">
           <div class="col-lg-9 col-12 ms-auto">
             <div class="section-title">
@@ -262,453 +262,153 @@
             </div>
           </div>
         </div>
-      </div>
+      </div>-->
       <!--Section Title End-->
       <!--Product Wrapper Start-->
-      <div class="col-lg-9 col-12 order-lg-3 mb-40">
-        <div class="row mbn-35">
-
-          <!--Product Start-->
-          <div class="col-xl-3 col-md-4 col-6 col-xxs-12 mb-35">
-            <div class="product">
+      <!--<div class="col-lg-9 col-12 order-lg-3 mb-40">
+        <div class="row mbn-35">-->
+          <!-- Product Start -->
+          <!--<div *ngFor="let product of products" class="col-xl-3 col-md-4 col-6 col-xxs-12 mb-35">
+            <div class="product">-->
 
               <!--Image & Action Start-->
-              <div class="image-action">
-
-                <a class="image" href="single-product.html"><img src="assets/images/products/product-1.jpg" alt=""></a>
-
+              <!--<div class="image-action">
+                <a class="image" [href]="'/single-product/' + product.id">
+                  <img [src]="product.img" [alt]="product.name">
+                </a>
                 <div class="labels">
-                  <span class="label new">New</span>
-                  <span class="label sale">Sale</span>
+                  <span *ngIf="product.isNew" class="label new">New</span>
+                  <span *ngIf="product.discount > 0" class="label sale">Sale</span>
                 </div>
-
-                <a href="#" class="wishlist-btn"><i class="icofont-heart"></i></a>
+                <a href="#" class="wishlist-btn"><i class="icofont-heart"></i></a>-->
 
                 <!--Action Start-->
-                <div class="action">
+                <!--<div class="action">
                   <a href="#" class="action-btn action-quickview"><i class="icofont-search-1"></i></a>
                   <a href="#" class="action-btn action-cart"><i class="icofont-shopping-cart"></i></a>
                   <a href="#" class="action-btn action-compare"><i class="icofont-refresh"></i></a>
-                </div>
+                </div>-->
                 <!--Action End-->
-
-              </div>
+              <!--</div>-->
               <!--Image & Action End-->
               <!--Content Start-->
-              <div class="content">
-
+              <!--<div class="content">-->
                 <!--Title & Price Start-->
-                <div class="title-price">
-
-                  <h4 class="title"><a href="single-product.html">Camera Pro 440</a></h4>
-
-                  <span class="price">$295.99</span>
-
-                </div>
+                <!--<div class="title-price">
+                  <h4 class="title"><a [href]="'/single-product/' + product.id">{{ product.name }}</a></h4>
+                  <span *ngIf="product.discount > 0" class="old-price">${{ product.originalPrice }}</span>
+                  <span class="price">${{ product.price }}</span>
+                </div>-->
                 <!--Title & Price End-->
-                <!--Ratting Start-->
-                <div class="ratting">
+                <!--Rating Start-->
+                <!--<div class="ratting">
                   <div class="inner">
-                    <span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span>
+                    <span>
+                      <i *ngFor="let star of [].constructor(product.rating); let i = index" [class.filled]="i < product.rating">
+                        <i class="fa fa-star"></i>
+                      </i>
+                    </span>
+                  </div>
+                </div>-->
+                <!--Rating End-->
+              <!--</div>-->
+              <!--Content End-->
+            <!--</div>
+          </div>-->
+          <!-- Product End -->
+        <!--</div>-->
+        <div class="section section-wide section-padding pt-0">
+          <div class="container-fluid">
+            <div class="row mbn-40">
+
+              <!-- تكرار الفئات مع المنتجات -->
+              <div *ngFor="let category of categories" class="col-12">
+                <div class="row">
+                  <div class="col-lg-9 col-12 ms-auto">
+                    <div class="section-title">
+                      <h2 id="title" class="title">{{ category.name }}</h2>
+                    </div>
                   </div>
                 </div>
-                <!--Ratting End-->
 
+                <!-- عرض المنتجات حسب الفئة -->
+                <div class="row mbn-35">
+                  <div *ngFor="let product of categorizedProducts[category.name]" class="col-xl-3 col-md-4 col-6 col-xxs-12 mb-35">
+                    <div class="product">
+                      <!--Image & Action Start-->
+                      <div class="image-action">
+                        <a class="image" [href]="'/single-product/' + product.id">
+                          <img [src]="product.img" [alt]="product.name">
+                        </a>
+
+                        <div class="labels">
+                          <span *ngIf="product.isNew" class="label new">New</span>
+                          <span *ngIf="product.discount > 0" class="label sale">Sale</span>
+                        </div>
+
+                        <a href="#" class="wishlist-btn"><i class="icofont-heart"></i></a>
+
+                        <!--Action Start-->
+                        <div class="action">
+                          <!--<a href="#" class="action-btn action-quickview"><i class="icofont-search-1"></i></a>-->
+                          <a href="#" class="action-btn action-cart"><i class="icofont-shopping-cart"></i></a>
+                          <!--<a href="#" class="action-btn action-compare"><i class="icofont-refresh"></i></a>-->
+                        </div>
+                        <!--Action End-->
+                      </div>
+                      <!--Image & Action End-->
+                      <!--Content Start-->
+                      <div class="content">
+                        <div class="title-price">
+                          <h4 class="title"><a [href]="'/single-product/' + product.id">{{ product.name }}</a></h4>
+                          <span *ngIf="product.discount > 0" class="old-price">${{ product.originalPrice }}</span>
+                          <span class="price">${{ product.price }}</span>
+                        </div>
+
+                        <!--Rating Start-->
+                        <div class="ratting">
+                          <div class="inner">
+                            <span>
+                              <i *ngFor="let star of [].constructor(product.rating); let i = index" [class.filled]="i < product.rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+
+                              </i>
+                            </span>
+                          </div>
+                        </div>
+                        <!--Rating End-->
+                      </div>
+                      <!--Content End-->
+                    </div>
+                  </div>
+                </div>
               </div>
-              <!--Content End-->
+              <!-- تكرار الفئات مع المنتجات End-->
 
             </div>
           </div>
-          <!--Product End-->
-          <!--Product Start-->
-          <div class="col-xl-3 col-md-4 col-6 col-xxs-12 mb-35">
-            <div class="product">
-
-              <!--Image & Action Start-->
-              <div class="image-action">
-
-                <a class="image" href="single-product.html"><img src="assets/images/products/product-2.jpg" alt=""></a>
-
-                <div class="labels">
-                  <span class="label new">New</span>
-                </div>
-
-                <a href="#" class="wishlist-btn"><i class="icofont-heart"></i></a>
-
-                <!--Action Start-->
-                <div class="action">
-                  <a href="#" class="action-btn action-quickview"><i class="icofont-search-1"></i></a>
-                  <a href="#" class="action-btn action-cart"><i class="icofont-shopping-cart"></i></a>
-                  <a href="#" class="action-btn action-compare"><i class="icofont-refresh"></i></a>
-                </div>
-                <!--Action End-->
-
-              </div>
-              <!--Image & Action End-->
-              <!--Content Start-->
-              <div class="content">
-
-                <!--Title & Price Start-->
-                <div class="title-price">
-
-                  <h4 class="title"><a href="single-product.html">Red Digital Camera</a></h4>
-
-                  <span class="price">$275.99</span>
-
-                </div>
-                <!--Title & Price End-->
-                <!--Ratting Start-->
-                <div class="ratting">
-                  <div class="inner">
-                    <span style="width: 92%;"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span>
-                  </div>
-                </div>
-                <!--Ratting End-->
-
-              </div>
-              <!--Content End-->
-
-            </div>
-          </div>
-          <!--Product End-->
-          <!--Product Start-->
-          <div class="col-xl-3 col-md-4 col-6 col-xxs-12 mb-35">
-            <div class="product">
-
-              <!--Image & Action Start-->
-              <div class="image-action">
-
-                <a class="image" href="single-product.html"><img src="assets/images/products/product-3.jpg" alt=""></a>
-
-                <div class="labels">
-                  <span class="label new">New</span>
-                </div>
-
-                <a href="#" class="wishlist-btn"><i class="icofont-heart"></i></a>
-
-                <!--Action Start-->
-                <div class="action">
-                  <a href="#" class="action-btn action-quickview"><i class="icofont-search-1"></i></a>
-                  <a href="#" class="action-btn action-cart"><i class="icofont-shopping-cart"></i></a>
-                  <a href="#" class="action-btn action-compare"><i class="icofont-refresh"></i></a>
-                </div>
-                <!--Action End-->
-
-              </div>
-              <!--Image & Action End-->
-              <!--Content Start-->
-              <div class="content">
-
-                <!--Title & Price Start-->
-                <div class="title-price">
-
-                  <h4 class="title"><a href="single-product.html">Axor Digital camera</a></h4>
-
-                  <span class="price">$295.99</span>
-
-                </div>
-                <!--Title & Price End-->
-                <!--Ratting Start-->
-                <div class="ratting">
-                  <div class="inner">
-                    <span style="width: 80%;"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span>
-                  </div>
-                </div>
-                <!--Ratting End-->
-
-              </div>
-              <!--Content End-->
-
-            </div>
-          </div>
-          <!--Product End-->
-          <!--Product Start-->
-          <div class="col-xl-3 col-md-4 col-6 col-xxs-12 mb-35">
-            <div class="product">
-
-              <!--Image & Action Start-->
-              <div class="image-action">
-
-                <a class="image" href="single-product.html"><img src="assets/images/products/product-4.jpg" alt=""></a>
-
-                <div class="labels">
-                  <span class="label new">New</span>
-                  <span class="label sale">Sale</span>
-                </div>
-
-                <a href="#" class="wishlist-btn"><i class="icofont-heart"></i></a>
-
-                <!--Action Start-->
-                <div class="action">
-                  <a href="#" class="action-btn action-quickview"><i class="icofont-search-1"></i></a>
-                  <a href="#" class="action-btn action-cart"><i class="icofont-shopping-cart"></i></a>
-                  <a href="#" class="action-btn action-compare"><i class="icofont-refresh"></i></a>
-                </div>
-                <!--Action End-->
-
-              </div>
-              <!--Image & Action End-->
-              <!--Content Start-->
-              <div class="content">
-
-                <!--Title & Price Start-->
-                <div class="title-price">
-
-                  <h4 class="title"><a href="single-product.html">Neko Digital Camera</a></h4>
-
-                  <span class="price">$199.99</span>
-
-                </div>
-                <!--Title & Price End-->
-                <!--Ratting Start-->
-                <div class="ratting">
-                  <div class="inner">
-                    <span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span>
-                  </div>
-                </div>
-                <!--Ratting End-->
-
-              </div>
-              <!--Content End-->
-
-            </div>
-          </div>
-          <!--Product End-->
-          <!--Product Start-->
-          <div class="col-xl-3 col-md-4 col-6 col-xxs-12 mb-35">
-            <div class="product">
-
-              <!--Image & Action Start-->
-              <div class="image-action">
-
-                <a class="image" href="single-product.html"><img src="assets/images/products/product-5.jpg" alt=""></a>
-
-                <div class="labels">
-                  <span class="label new">New</span>
-                </div>
-
-                <a href="#" class="wishlist-btn"><i class="icofont-heart"></i></a>
-
-                <!--Action Start-->
-                <div class="action">
-                  <a href="#" class="action-btn action-quickview"><i class="icofont-search-1"></i></a>
-                  <a href="#" class="action-btn action-cart"><i class="icofont-shopping-cart"></i></a>
-                  <a href="#" class="action-btn action-compare"><i class="icofont-refresh"></i></a>
-                </div>
-                <!--Action End-->
-
-              </div>
-              <!--Image & Action End-->
-              <!--Content Start-->
-              <div class="content">
-
-                <!--Title & Price Start-->
-                <div class="title-price">
-
-                  <h4 class="title"><a href="single-product.html">Retro Digital Camera</a></h4>
-
-                  <span class="price">$245.99</span>
-
-                </div>
-                <!--Title & Price End-->
-                <!--Ratting Start-->
-                <div class="ratting">
-                  <div class="inner">
-                    <span style="width: 50%;"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span>
-                  </div>
-                </div>
-                <!--Ratting End-->
-
-              </div>
-              <!--Content End-->
-
-            </div>
-          </div>
-          <!--Product End-->
-          <!--Product Start-->
-          <div class="col-xl-3 col-md-4 col-6 col-xxs-12 mb-35">
-            <div class="product">
-
-              <!--Image & Action Start-->
-              <div class="image-action">
-
-                <a class="image" href="single-product.html"><img src="assets/images/products/product-6.jpg" alt=""></a>
-
-                <div class="labels">
-                  <span class="label new">New</span>
-                </div>
-
-                <a href="#" class="wishlist-btn"><i class="icofont-heart"></i></a>
-
-                <!--Action Start-->
-                <div class="action">
-                  <a href="#" class="action-btn action-quickview"><i class="icofont-search-1"></i></a>
-                  <a href="#" class="action-btn action-cart"><i class="icofont-shopping-cart"></i></a>
-                  <a href="#" class="action-btn action-compare"><i class="icofont-refresh"></i></a>
-                </div>
-                <!--Action End-->
-
-              </div>
-              <!--Image & Action End-->
-              <!--Content Start-->
-              <div class="content">
-
-                <!--Title & Price Start-->
-                <div class="title-price">
-
-                  <h4 class="title"><a href="single-product.html">Polaid camera 300</a></h4>
-
-                  <span class="price">$325.99</span>
-
-                </div>
-                <!--Title & Price End-->
-                <!--Ratting Start-->
-                <div class="ratting">
-                  <div class="inner">
-                    <span style="width: 92%;"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span>
-                  </div>
-                </div>
-                <!--Ratting End-->
-
-              </div>
-              <!--Content End-->
-
-            </div>
-          </div>
-          <!--Product End-->
-          <!--Product Start-->
-          <div class="col-xl-3 col-md-4 col-6 col-xxs-12 mb-35">
-            <div class="product">
-
-              <!--Image & Action Start-->
-              <div class="image-action">
-
-                <a class="image" href="single-product.html"><img src="assets/images/products/product-7.jpg" alt=""></a>
-
-                <div class="labels">
-                  <span class="label new">New</span>
-                  <span class="label sale">Sale</span>
-                </div>
-
-                <a href="#" class="wishlist-btn"><i class="icofont-heart"></i></a>
-
-                <!--Action Start-->
-                <div class="action">
-                  <a href="#" class="action-btn action-quickview"><i class="icofont-search-1"></i></a>
-                  <a href="#" class="action-btn action-cart"><i class="icofont-shopping-cart"></i></a>
-                  <a href="#" class="action-btn action-compare"><i class="icofont-refresh"></i></a>
-                </div>
-                <!--Action End-->
-
-              </div>
-              <!--Image & Action End-->
-              <!--Content Start-->
-              <div class="content">
-
-                <!--Title & Price Start-->
-                <div class="title-price">
-
-                  <h4 class="title"><a href="single-product.html">Retro Pro 600</a></h4>
-
-                  <span class="price">$285.99</span>
-
-                </div>
-                <!--Title & Price End-->
-                <!--Ratting Start-->
-                <div class="ratting">
-                  <div class="inner">
-                    <span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span>
-                  </div>
-                </div>
-                <!--Ratting End-->
-
-              </div>
-              <!--Content End-->
-
-            </div>
-          </div>
-          <!--Product End-->
-          <!--Product Start-->
-          <div class="col-xl-3 col-md-4 col-6 col-xxs-12 mb-35">
-            <div class="product">
-
-              <!--Image & Action Start-->
-              <div class="image-action">
-
-                <a class="image" href="single-product.html"><img src="assets/images/products/product-8.jpg" alt=""></a>
-
-                <div class="labels">
-                  <span class="label new">New</span>
-                </div>
-
-                <a href="#" class="wishlist-btn"><i class="icofont-heart"></i></a>
-
-                <!--Action Start-->
-                <div class="action">
-                  <a href="#" class="action-btn action-quickview"><i class="icofont-search-1"></i></a>
-                  <a href="#" class="action-btn action-cart"><i class="icofont-shopping-cart"></i></a>
-                  <a href="#" class="action-btn action-compare"><i class="icofont-refresh"></i></a>
-                </div>
-                <!--Action End-->
-
-              </div>
-              <!--Image & Action End-->
-              <!--Content Start-->
-              <div class="content">
-
-                <!--Title & Price Start-->
-                <div class="title-price">
-
-                  <h4 class="title"><a href="single-product.html">Puls Coolpix SS3</a></h4>
-
-                  <span class="price">$215.99</span>
-
-                </div>
-                <!--Title & Price End-->
-                <!--Ratting Start-->
-                <div class="ratting">
-                  <div class="inner">
-                    <span style="width: 95%;"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span>
-                  </div>
-                </div>
-                <!--Ratting End-->
-
-              </div>
-              <!--Content End-->
-
-            </div>
-          </div>
-          <!--Product End-->
-
         </div>
-      </div>
-      <!--Product Wrapper End-->
-      <!--Banner Wrapper Start-->
-      <div class="col-lg-3 col-12 order-lg-2 mb-40">
-        <div class="row mbn-35">
+        <!--Product Wrapper End-->
+        <!--Banner Wrapper Start-->
+        <div class="col-lg-3 col-12 order-lg-2 mb-40">
+          <div class="row mbn-35">
 
-          <!--Banner Start-->
-          <div class="col-lg-12 col-6 mb-35">
-            <div class="banner">
-              <a href="#"><img src="assets/images/banner/banner-4.jpg" alt="Banner"></a>
-            </div>
-          </div>
-          <!--Banner End-->
-          <!--Banner Start-->
-          <div class="col-lg-12 col-6 mb-35">
-            <div class="banner">
-              <a href="#"><img src="assets/images/banner/banner-5.jpg" alt="Banner"></a>
-            </div>
-          </div>
-          <!--Banner End-->
+            <!--Banner Start-->
+          
+            <!--Banner End-->
 
+          </div>
         </div>
-      </div>
-      <!--Banner Wrapper End-->
+        <!--Banner Wrapper End-->
 
-    </div>
+      </div>
   </div>
 </div>
+
 <!--Propular Products Section End-->
 <!--Banner Section Start-->
 <div class="section section-wide section-padding pt-0">

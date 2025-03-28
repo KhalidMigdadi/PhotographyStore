@@ -220,15 +220,15 @@
           <ul>
             <li>
               <h4>Address</h4>
-              <p>256, Centerl Town, Main Street Hilton Tower, New Yourk</p>
+              <p style="margin-left: 30px;">Irbid, Jordan</p>
             </li>
             <li>
               <h4>Phone</h4>
-              <p><a href="#">+8801265 897 568</a><a href="#">+8801235 598 656</a></p>
+              <p style="margin-left: 30px;"><a >+962 778 410 502</a></p>
             </li>
             <li>
               <h4>Web</h4>
-              <p><a href="#">info&#64;example.com</a><a href="#">www.example.com</a></p>
+              <p style="margin-left: 30px;"><a >info&#64;gracia.com</a><a >www.gracia.com</a></p>
             </li>
           </ul>
         </div>
@@ -237,18 +237,38 @@
       <div class="col-lg-7 col-12 mb-40">
         <div class="contact-form-wrap">
           <h3>Get in Touch</h3>
-          <p>Terms & Conditions deleniti atque corrupti sdolores et quas molestias cepturi sint eca itate non similique sunt in culpa modi tempora incidunt obtain pain</p>
+          <p>
+            Feel free to reach out to us for any inquiries, feedback, or assistance. We are here to help!
+
+          </p>
           <div class="contact-form">
-            <form id="contact-form" action="https://whizthemes.com/mail-php/other/mail.php" method="post">
-              <div class="row row-10">
-                <div class="col-md-6 col-12 mb-30"><input type="text" name="con_name" placeholder="Name"></div>
-                <div class="col-md-6 col-12 mb-30"><input type="email" name="con_email" placeholder="Email"></div>
-                <div class="col-md-6 col-12 mb-30"><input type="text" name="con_phone" placeholder="Phone"></div>
-                <div class="col-md-6 col-12 mb-30"><input type="text" name="con_subject" placeholder="Subject"></div>
-                <div class="col-12 mb-30"><textarea name="con_message" placeholder="Write message here..."></textarea></div>
-                <div class="col-12"><button type="submit" class="btn">submit</button></div>
+            <!-- contact.component.html -->
+            <!-- contact.component.html -->
+            <!-- contact.component.html -->
+            <form (ngSubmit)="onSubmit(contactForm)" #contactForm="ngForm">
+              <div class="row">
+                <div class="col-md-6">
+                  <input type="text" name="con_name" ngModel required placeholder="Name">
+                </div>
+                <div class="col-md-6">
+                  <input type="email" name="con_email" ngModel required placeholder="Email">
+                </div>
+                <div class="col-md-6">
+                  <input type="text" name="con_phone" ngModel required placeholder="Phone">
+                </div>
+                <div class="col-md-6">
+                  <input type="text" name="con_subject" ngModel required placeholder="Subject">
+                </div>
+                <div class="col-12">
+                  <textarea name="con_message" ngModel required placeholder="Write message here..."></textarea>
+                </div>
+                <div class="col-12">
+                  <button type="submit" class="btn">Submit</button>
+                </div>
               </div>
             </form>
+
+
             <p class="form-messege"></p>
           </div>
 
