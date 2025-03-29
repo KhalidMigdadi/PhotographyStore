@@ -116,7 +116,8 @@ export class ShopComponent implements OnInit {
 
   // ✅ إضافة المنتج إلى السلة مع userId
   Addtocart(product: any) {
-    const userId = this.urlService.getUserId(); // جلب userId من خدمة UrlService
+    const userId = this.urlService.getUserId(); // جلب userId
+    const cartId = this.urlService.getCartId(); // جلب cartId المحفوظ
 
     if (!userId) {
       Swal.fire({
@@ -127,9 +128,23 @@ export class ShopComponent implements OnInit {
       return;
     }
 
-    const userIdNumber = Number(userId); // تحويل userId إلى رقم
+    if (!cartId) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Cart ID not found!',
+        text: 'Please create a cart before adding items.',
+      });
+      return;
+    }
 
-    this.cartService.addToCart(product, userIdNumber).subscribe(
+    const cartItem = {
+      ...product, // بيانات المنتج
+      userId: userId, // إضافة userId
+      cartId: cartId, // إضافة cartId
+      quantity: 1 // الكمية الافتراضية
+    };
+    const userIdNumber = Number(userId); // تحويل userId إلى رقم
+    this.cartService.addToCart(cartItem, userIdNumber).subscribe(
       () => {
         Swal.fire({
           icon: 'success',
@@ -139,10 +154,11 @@ export class ShopComponent implements OnInit {
         });
       },
       (error) => {
-        console.error('Error adding product:', error);
+        console.error('Error adding product to cartItem:', error);
       }
     );
   }
+
 
   // ✅ إضافة المنتج إلى المفضلة بعد التحقق من عدم وجوده مسبقًا
   addToFavorite(product: any) {
@@ -193,6 +209,15 @@ export class ShopComponent implements OnInit {
       this.favoriteList.push(favoriteItem);
     });
   }
+
+
+
+
+
+
+
+
+
 
   // ✅ ترتيب المنتجات
   sortProducts(event: any) {

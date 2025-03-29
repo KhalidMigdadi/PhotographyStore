@@ -300,7 +300,8 @@
               </div>
               <div class="cart-summary-button">
                 <!-- في CartComponent -->
-                <button class="btn" (click)="goToCheckout()">Checkout</button>
+                <!--<button class="btn" (click)="goToCheckout()">Checkout</button>-->
+                <a class="btn" [routerLink]="['/checkout']" [queryParams]="{ totalPrice: totalPrice }">Checkout</a>
                 <button class="btn">Update Cart</button>
               </div>
             </div>

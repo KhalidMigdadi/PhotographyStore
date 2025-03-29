@@ -1,4 +1,4 @@
-        <!--Offcanvas Cart Section Start-->
+  <!--Offcanvas Cart Section Start-->
 <div class="offcanvas-cart-section">
   <div class="inner">
 
@@ -216,7 +216,7 @@
       <div class="col-12">
 
         <!-- Checkout Form Start-->
-        <form action="#" class="checkout-form">
+        <form #Checkout="ngForm" (ngSubmit)="AddOrder(Checkout.value)" class="checkout-form">
           <div class="row mbn-40">
 
             <div class="col-lg-7 mb-40">
@@ -227,19 +227,19 @@
 
                 <div class="row mbn-30">
 
-                  
+
 
                   <div class="col-12 mb-30">
-                    <label>Company Name</label>
-                    <input type="text" placeholder="Company Name">
+                    <label>Phone</label>
+                    <input type="text" name="Phone" ngModel placeholder="Phone">
                   </div>
 
                   <div class="col-12 mb-30">
                     <label>Address*</label>
-                    <input type="text" placeholder="Address line 1" class="mb-15">
+                    <input type="text" name="Address" ngModel placeholder="Address" class="mb-15">
                   </div>
 
-                  
+
 
 
 
@@ -247,72 +247,7 @@
 
               </div>
 
-              <!-- Shipping Address -->
-              <div id="shipping-form" class="mt-30">
-                <h4 class="checkout-title">Shipping Address</h4>
 
-                <div class="row mbn-30">
-
-                  <div class="col-md-6 col-12 mb-30">
-                    <label>First Name*</label>
-                    <input type="text" placeholder="First Name">
-                  </div>
-
-                  <div class="col-md-6 col-12 mb-30">
-                    <label>Last Name*</label>
-                    <input type="text" placeholder="Last Name">
-                  </div>
-
-                  <div class="col-md-6 col-12 mb-30">
-                    <label>Email Address*</label>
-                    <input type="email" placeholder="Email Address">
-                  </div>
-
-                  <div class="col-md-6 col-12 mb-30">
-                    <label>Phone no*</label>
-                    <input type="text" placeholder="Phone number">
-                  </div>
-
-                  <div class="col-12 mb-30">
-                    <label>Company Name</label>
-                    <input type="text" placeholder="Company Name">
-                  </div>
-
-                  <div class="col-12 mb-30">
-                    <label>Address*</label>
-                    <input type="text" placeholder="Address line 1" class="mb-15">
-                    <input type="text" placeholder="Address line 2">
-                  </div>
-
-                  <div class="col-md-6 col-12 mb-30">
-                    <label>Country*</label>
-                    <select class="nice-select">
-                      <option>Bangladesh</option>
-                      <option>China</option>
-                      <option>country</option>
-                      <option>India</option>
-                      <option>Japan</option>
-                    </select>
-                  </div>
-
-                  <div class="col-md-6 col-12 mb-30">
-                    <label>Town/City*</label>
-                    <input type="text" placeholder="Town/City">
-                  </div>
-
-                  <div class="col-md-6 col-12 mb-30">
-                    <label>State*</label>
-                    <input type="text" placeholder="State">
-                  </div>
-
-                  <div class="col-md-6 col-12 mb-30">
-                    <label>Zip Code*</label>
-                    <input type="text" placeholder="Zip Code">
-                  </div>
-
-                </div>
-
-              </div>
 
             </div>
 
@@ -325,19 +260,31 @@
                   <h4 class="checkout-title">Cart Total</h4>
 
                   <div class="checkout-cart-total">
+                    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 10px 0; border-bottom: 2px solid #ddd;">
+                      <h4 style="flex: 1; text-align: left; margin: 0; line-height: 1.5;">Product</h4>
+                      <h4 style="flex: 1; text-align: center; margin: 0; line-height: 1.5;">Quantity</h4>
+                      <h4 style="flex: 1; text-align: right; margin: 0; line-height: 1.5;">Price</h4>
+                    </div>
 
-                    <h4>Product <span>Total</span></h4>
 
-                    <ul>
-                      <li>Camera Pro 440 X 01 <span>$295.99</span></li>
-                      <li>Red Digital Camera X 02 <span>$551.98</span></li>
-                      <li>Axor Digital camera X 01 <span>$295.99</span></li>
-                      <li>Neko Digital Camera X 01 <span>$199.99</span></li>
+
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                     
+                      <li *ngFor="let item of AllCartBy_ID"
+                          style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #eee;">
+                        <span style="flex: 1; text-align: left;">{{ item.name }}</span>
+                        <span style="flex: 1; text-align: center;">{{ item.quantity }}</span>
+                        <span style="flex: 1; text-align: right;">${{ item.price * item.quantity }}</span>
+                      </li>
                     </ul>
 
 
+                    <div>
+                      <label style=" margin-top: 21px; font-size: 20px; font-weight: 700;">Total</label>
+                      <input type="text" [(ngModel)]="Total" value="{{Total}}" readonly style="text-align: center; font-size: 17px; font-weight: 600;" class="mb-15">
+                    </div>
 
-                    <h4>Grand Total <span>$1,343.95‬</span></h4>
+
 
                   </div>
 
@@ -351,21 +298,20 @@
                   <div class="checkout-payment-method">
 
                     <div class="single-method">
-                      <input type="radio" id="payment_check" name="payment-method" value="check">
-                      <label for="payment_check">Check Payment</label>
-                      <p class="content">Please send a Check to Store name with Store Street, Store Town, Store State, Store Postcode, Store Country.</p>
+                      <input type="radio" id="payment_check" name="Payment_Method" [(ngModel)]="Payment_Method" value="Credit Card">
+                      <label for="payment_check">Credit Card</label>
                     </div>
 
                     <div class="single-method">
-                      <input type="radio" id="payment_bank" name="payment-method" value="bank">
-                      <label for="payment_bank">Direct Bank Transfer</label>
-                      <p class="content">Please send a Check to Store name with Store Street, Store Town, Store State, Store Postcode, Store Country.</p>
+                      <input type="radio" id="payment_bank" name="Payment_Method" [(ngModel)]="Payment_Method" value="Orange Money">
+                      <label for="payment_bank">Orange Money</label>
                     </div>
 
-                  
+
+
                   </div>
 
-                  <button class="place-order btn">Place order</button>
+                  <button style="position: relative; right: 552px; bottom: 307px; width: 370px; " class="place-order btn">Place order</button>
 
                 </div>
 
@@ -373,8 +319,8 @@
             </div>
 
           </div>
-        </form><!-- Checkout Form End-->
-
+          <!-- Checkout Form End-->
+        </form>
       </div>
     </div>
   </div>

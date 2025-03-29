@@ -130,6 +130,9 @@ export class CartService {
   private cartItemCount = new BehaviorSubject<number>(0); // عدد عناصر السلة كـ Observable
   cartItemCount$ = this.cartItemCount.asObservable(); // هذا سيتم الاستماع له في `navbar`
 
+
+
+
   constructor(private http: HttpClient) { }
 
   // ✅ جلب كل العناصر من السلة الخاصة بالمستخدم
@@ -145,18 +148,22 @@ export class CartService {
 
 
 
-
-
-
-
-
   // ✅ إضافة منتج جديد إلى السلة مع userId
+  //addToCart(item: any, userId: number): Observable<any> {
+  //  return this.http.post<any>(this.apiUrlCartItem, {
+  //    ...item, // إضافة بيانات المنتج
+  //    userId: userId, // إضافة الـ userId
+  //    quantity: 1 // تحديد الكمية الافتراضية
+  //  });
+  //}
+
   addToCart(item: any, userId: number): Observable<any> {
-    return this.http.post<any>(this.apiUrlCartItem, {
-      ...item, // إضافة بيانات المنتج
-      userId: userId, // إضافة الـ userId
-      quantity: 1 // تحديد الكمية الافتراضية
-    });
+    return this.http.post<any>(this.apiUrlCartItem, item).pipe(
+      catchError((error) => {
+        console.error('Error adding item to cart:', error);
+        return throwError(error);
+      })
+    );
   }
 
 
@@ -188,6 +195,19 @@ export class CartService {
       map((vouchers) => vouchers.length > 0 ? vouchers[0] : null)
     );
   }
+  cartItems: any[] = [];  // مصفوفة لتخزين عناصر السلة
+
+  Total: number = 0;  // تأكد من تعريف المتغير هنا
+
+
+  calculateTotal() {
+    this.Total = this.cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  }
+
+
+
+
+
 }
 
 

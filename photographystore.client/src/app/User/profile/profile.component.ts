@@ -258,6 +258,11 @@ export class ProfileComponent {
         this.isPasswordVerified = false;
       });
     }
+
+
+   
+
   }
+
 }
 

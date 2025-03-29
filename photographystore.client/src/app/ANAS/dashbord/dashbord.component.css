@@ -1,62 +1,106 @@
-/* The side navigation menu */
+/* Main Layout */
 .sidebar {
-  margin: 0;
-  padding: 0;
-  width: 200px;
-  background-color: #f1f1f1;
+  width: 220px;
+  background: #2c3e50;
   position: fixed;
-  height: 100%;
-  overflow: auto;
+  height: 100vh;
+  padding: 20px 0;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+  z-index: 100;
 }
 
-  /* Sidebar links */
-  .sidebar a {
-    display: block;
-    color: black;
-    padding: 16px;
-    text-decoration: none;
+.content {
+  margin-left: 220px;
+  padding: 20px;
+  background: #f5f7fa;
+  min-height: 100vh;
+}
+
+/* Sidebar Links */
+.sidebar a {
+  display: block;
+  padding: 12px 20px;
+  color: #b8c7ce;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.3s;
+  border-left: 3px solid transparent;
+  margin: 5px 10px;
+  border-radius: 4px;
+}
+
+  .sidebar a:hover {
+    color: white;
+    background: rgba(255,255,255,0.1);
   }
 
-    /* Active/current link */
-    .sidebar a.active {
-      background-color: #04AA6D;
-      color: white;
-    }
+  .sidebar a.active {
+    background: #3498db;
+    color: white;
+    border-left: 3px solid #fff;
+    font-weight: 600;
+  }
 
-    /* Links on mouse-over */
-    .sidebar a:hover:not(.active) {
-      background-color: #555;
-      color: white;
-    }
-
-/* Page content. The value of the margin-left property should match the value of the sidebar's width property */
-div.content {
-  margin-left: 200px;
-  padding: 1px 16px;
-  height: 1000px;
-}
-
-/* On screens that are less than 700px wide, make the sidebar into a topbar */
-@media screen and (max-width: 700px) {
-  .sidebar {
-    width: 100%;
-    height: auto;
+  /* Grouping Visual Separation */
+  .sidebar a:nth-child(1) {
+    margin-top: 30px;
     position: relative;
   }
 
-    .sidebar a {
-      float: left;
+    .sidebar a:nth-child(1)::before {
+      content: "Management";
+      position: absolute;
+      top: -25px;
+      left: 20px;
+      color: #7f8c8d;
+      font-size: 12px;
+      text-transform: uppercase;
+      font-weight: bold;
     }
 
-  div.content {
-    margin-left: 0;
+  .sidebar a:nth-child(5) {
+    margin-top: 30px;
+    position: relative;
   }
+
+    .sidebar a:nth-child(5)::before {
+      content: "Add New";
+      position: absolute;
+      top: -25px;
+      left: 20px;
+      color: #7f8c8d;
+      font-size: 12px;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+/* Content Area Styling */
+.content {
+  background: #f5f7fa;
 }
 
-/* On screens that are less than 400px, display the bar vertically, instead of horizontally */
-@media screen and (max-width: 400px) {
-  .sidebar a {
-    text-align: center;
-    float: none;
+/* Responsive Design */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 60px;
+    overflow: hidden;
+  }
+
+    .sidebar a {
+      padding: 15px 10px;
+      text-align: center;
+      margin: 2px 5px;
+    }
+
+      .sidebar a span {
+        display: none;
+      }
+
+      .sidebar a::before {
+        display: none;
+      }
+
+  .content {
+    margin-left: 60px;
   }
 }
