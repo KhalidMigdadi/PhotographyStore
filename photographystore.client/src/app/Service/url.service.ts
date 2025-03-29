@@ -200,7 +200,7 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -218,10 +218,18 @@ export class UrlService {
   private userIdSubject = new BehaviorSubject<string | null>(null);
   userId$ = this.userIdSubject.asObservable();
 
+
+ 
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
   constructor(private _url: HttpClient) { }
+
+
+  getCartDetails(): Observable<any> {
+    return this._url.get<any>(this.apiUrl);
+  }
+
 
   ///////////////////////
   // ✅ Auth / Users
@@ -231,6 +239,11 @@ export class UrlService {
     localStorage.setItem('userId', id);
     this.setLoginStatus(true); // ✅ Auto-login
   }
+
+  //setCartId(id: string) {
+  //  this.cartIdSubject.next(id);
+  //}
+
 
   getUsers(): Observable<any> {
     return this._url.get<any>(this.apiUrl);
@@ -270,6 +283,26 @@ export class UrlService {
   getCategory(): Observable<any> {
     return this._url.get("https://67cd64b6dd7651e464ee3d63.mockapi.io/categories");
   }
+
+  private cartIdSubject = new BehaviorSubject<string | null>(null);
+  CartId = this.cartIdSubject.asObservable();
+
+
+  
+
+  addCart(data: any): Observable<any> {
+    this.userId$.subscribe(s => {
+      data.userId = s;
+    }) 
+    return this._url.post("https://67e3f94f2ae442db76d26687.mockapi.io/cart", data).pipe(
+      tap((response: any) => {
+        const cartId = response.id;  // استخراج الـ ID من الاستجابة
+        this.cartIdSubject.next(cartId)
+        console.log('Created cart ID:', cartId);  // طباعة الـ cartId
+      })
+    );
+  }
+
 
   getProduct(): Observable<any> {
     return this._url.get(this.apiUrlProducts);
@@ -348,10 +381,10 @@ export class UrlService {
     return this._url.post<any>("https://67e3f94f2ae442db76d26687.mockapi.io/cartItem", data);
   }
 
-  ///////////////////////
-  // ✅ User ID from API
-  ///////////////////////
-  getUserIdFromAPI(): Observable<string> {
-    return this._url.get<string>("https://your-api-url.com/user-id"); // استبدل بـ API الفعلي
+
+  getCartId(): string | null {
+    return this.cartIdSubject.value; // إرجاع قيمة cartId المحفوظة
   }
+
+
 }

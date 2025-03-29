@@ -1,11 +1,25 @@
-<div class="product-container">
-  <div class="card" *ngFor="let item of viewdata">
-    <div class="card-body">
-      <h5 class="card-title">{{item.name}}</h5>
-      <h5 class="card-title">discount for user :{{item.discount}} %</h5>
-      <p class="card-text">id : {{item.id}}</p>
-      <a routerLink="/dash/editvocher/{{item.id}}" class="btn btn-primary" id="blue" data-mdb-ripple-init>edit voch</a>
-      <button (click)="delete(item.id)" class="btn btn-danger color" id="red" data-mdb-ripple-init>delete Vocher</button>
+<div class="voucher-cards-container">
+  <div class="voucher-card" *ngFor="let item of viewdata">
+    <div class="voucher-header">
+      <span class="voucher-code">VOUCHER #{{item.id}}</span>
+      <div class="discount-pill">{{item.discount}}% OFF</div>
+    </div>
+
+    <div class="voucher-body">
+      <h3 class="voucher-title">{{item.name}}</h3>
+      <div class="discount-badge">
+        <span class="discount-value">{{item.discount}}%</span>
+        <span>Discount</span>
+      </div>
+    </div>
+
+    <div class="voucher-actions">
+      <a routerLink="/dash/editvocher/{{item.id}}" class="action-btn edit">
+        <i class="fas fa-edit"></i> Edit
+      </a>
+      <button (click)="delete(item.id)" class="action-btn delete">
+        <i class="fas fa-trash-alt"></i> Delete
+      </button>
     </div>
   </div>
 </div>

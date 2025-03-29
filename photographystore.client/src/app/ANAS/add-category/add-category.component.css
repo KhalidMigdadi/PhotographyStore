@@ -1,0 +1,123 @@
+/* Modern Category Form Design - Purple Theme */
+.container.mt-5 {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: #f9fafb;
+  padding: 2rem 0;
+}
+
+.card {
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  background: white;
+}
+
+  .card:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  }
+
+.card-header.bg-primary {
+  background: linear-gradient(135deg, #6b46c1 0%, #805ad5 100%) !important;
+  padding: 1.25rem 1.5rem;
+  border-bottom: none;
+  position: relative;
+}
+
+  .card-header.bg-primary::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to right, rgba(255,255,255,0.1) 0%, transparent 100%);
+  }
+
+.card-header h4 {
+  font-weight: 600;
+  color: white;
+  letter-spacing: -0.5px;
+  position: relative;
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+.form-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #4a5568;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.form-control {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 0.9375rem;
+  transition: all 0.3s ease;
+  background-color: #f8fafc;
+}
+
+  .form-control:focus {
+    border-color: #9f7aea;
+    box-shadow: 0 0 0 3px rgba(159, 122, 234, 0.2);
+    background-color: white;
+  }
+
+.d-grid.gap-2 {
+  margin-top: 1.5rem;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #805ad5 0%, #6b46c1 100%);
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem;
+  font-weight: 500;
+  font-size: 0.9375rem;
+  color: white;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+  .btn-primary:hover {
+    background: linear-gradient(135deg, #6b46c1 0%, #553c9a 100%);
+    transform: translateY(-2px);
+  }
+
+  .btn-primary:active {
+    transform: translateY(0);
+  }
+
+/* Input focus animation */
+.mb-3 {
+  position: relative;
+  margin-bottom: 1.25rem;
+}
+
+  .mb-3:focus-within .form-label {
+    color: #6b46c1;
+  }
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .col-md-6 {
+    padding: 0 1rem;
+  }
+
+  .card {
+    margin-top: 1rem;
+  }
+}
+
+/* Special styling for description field */
+#categoryImage1 {
+  min-height: 80px;
+  resize: vertical;
+}

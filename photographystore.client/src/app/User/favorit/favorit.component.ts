@@ -7,19 +7,14 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-favorit',
   templateUrl: './favorit.component.html',
-  styleUrl: './favorit.component.css'
+  styleUrls: ['./favorit.component.css'] // تأكد من أن اسم الملف صحيح
 })
 export class FavoritComponent {
 
   constructor(private _htp: UrlService, private cartService: CartService) { }
 
-
   ngOnInit() {
-
-    this.showfavorite();
-
-
-
+    this.showFavorite();
   }
 
   favorite: any
@@ -49,16 +44,24 @@ export class FavoritComponent {
     });
   }
 
+  // إضافة منتج إلى المفضلة
+  addToFavorite(productId: any) {
+    const userId = localStorage.getItem('userId');
+    if (!userId) return; // التحقق من وجود الـ userId
 
+    // إنشاء الكائن المفضل وإرساله إلى الواجهة الخلفية
+    const newFavorite = { userId, productId };
+    this._htp.addToFavorite(newFavorite).subscribe(() => {
+      alert('Product added to Favorite');
+      this.showFavorite(); // تحديث المفضلة بعد الإضافة
+    });
+  }
 
-  DeleteFav(id: any) {
+  // حذف منتج من المفضلة
+  deleteFavorite(id: any) {
     this._htp.DeleteF(id).subscribe(() => {
-
-      this.showfavorite();
-
-      alert("Product Deleted from Favorite");
-
-
+      this.showFavorite(); // تحديث المفضلة بعد الحذف
+      alert('Product deleted from Favorite');
     });
   }
 
