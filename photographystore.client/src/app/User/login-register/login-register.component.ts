@@ -63,6 +63,8 @@ export class LoginRegisterComponent {
 
       if (user) {
         this.shopUserService.setUserId(user.id);
+        // Phantom Was here
+        localStorage.setItem('userId', user.id); 
         this.isLoggedIn = true;
 
         Swal.fire({

@@ -35,7 +35,7 @@ const routes: Routes = [
   { path: "login", component: LoginRegisterComponent },
   { path: "about", component: AboutUsComponent },
   { path: "profile", component: ProfileComponent },
-  { path: "details", component: DetailsComponent },
+  { path: "details/:id", component: DetailsComponent },  // Phantom Was here
   { path: "product", component: ProductComponent },
 
 

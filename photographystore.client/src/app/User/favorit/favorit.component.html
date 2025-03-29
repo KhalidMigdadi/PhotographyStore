@@ -37,17 +37,29 @@
                 </tr>
               </thead>
               <tbody>
-             
-                <tr *ngFor="let item of favorite">
-                  <td><a href="single-product.html"><img [src]="item.avatar" alt="Product"></a></td>
-                  <td>{{item.name}}</td>
-                  <td>{{item.price}}</td>
-                  <!--<td>
-                    <div class="pro-qty"> {{item.quantity}}<input type="text" value="1"></div>
-                  </td>-->
-                  <td><a href="#" class="btn">Add to Cart</a></td>
-                  <td> <button (click)="DeleteFav(item.id)"><i class="fa fa-trash-o"></i> </button></td>
-                </tr>
+
+                  <tr *ngFor="let item of favorite">
+                      <!-- Phantom Was here -->
+                      <td>
+                          <a [routerLink]="['/details', item.productId]">
+                              <img [src]="item.avatar" alt="Product">
+                          </a>
+                      </td>
+                      <td>{{item.name}}</td>
+                      <td>{{item.price}}</td>
+                      <!--<td>
+          <div class="pro-qty"> {{item.quantity}}<input type="text" value="1"></div>
+        </td>-->
+                      <td>
+                          <button class="btn" (click)="addToCart(item)">
+                              <i class="icofont-shopping-cart"></i> Add to Cart
+                          </button>
+                      </td>
+                      <td> <button (click)="DeleteFav(item.id)"><i class="fa fa-trash-o"></i> </button></td>
+                  </tr>
+                  <tr *ngIf="favorite.length === 0">
+                      <td colspan="5" class="text-center">No items in your wishlist yet 💔</td>
+                  </tr>
               </tbody>
 
               <!--<tr>

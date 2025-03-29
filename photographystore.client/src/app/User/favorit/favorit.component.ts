@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { UrlService } from '../../Service/url.service';
 import { Data } from '@angular/router';
+import { CartService } from '../../Service/cart.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-favorit',
@@ -9,7 +11,7 @@ import { Data } from '@angular/router';
 })
 export class FavoritComponent {
 
-  constructor(private _htp: UrlService) { }
+  constructor(private _htp: UrlService, private cartService: CartService) { }
 
 
   ngOnInit() {
@@ -22,14 +24,28 @@ export class FavoritComponent {
 
   favorite: any
   showfavorite() {
-    const userId = localStorage.getItem('userId'); // استرجاع ID المستخدم
+    // Phantom Was here
+    const userId = this._htp.getUserId();
     if (!userId) {
       this.favorite = [];
       return;
     }
 
     this._htp.ShowF().subscribe((data) => {
-      this.favorite = data.filter((item: any) => item.userId === userId);
+      //this.favorite = data.filter((item: any) => item.userId === userId);
+      const userFavorites = data.filter((item: any) => item.userId === userId) // Phantom Was here
+      this._htp.getProducts().subscribe((allProducts) => {
+        this.favorite = userFavorites.map((fav: any) => {
+          console.log('Favorite List:', this.favorite);
+          const product = allProducts.find((p: any) => p.id == fav.productId);
+          return {
+            ...fav,
+            name: product?.name,
+            price: product?.price,
+            avatar: product?.img
+          };
+        });
+      });
     });
   }
 
@@ -45,6 +61,35 @@ export class FavoritComponent {
 
     });
   }
+
+  addToCart(item: any) {
+    const userId = this._htp.getUserId();
+
+    if (!userId) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Please login first!',
+        text: 'You need to be logged in to add items to the cart.',
+      });
+      return;
+    }
+
+    const cartItem = {
+      userId: userId,
+      productId: item.productId,
+      name: item.name,
+      price: item.price,
+      img: item.avatar,
+      quantity: 1
+    };
+
+    const userIdNum = Number(userId);
+    this.cartService.addToCart(cartItem, userIdNum).subscribe(() => {
+      Swal.fire('Added to Cart!', '', 'success');
+    });
+  }
+
+
 
 
 
