@@ -60,6 +60,8 @@ export class NavbarComponent implements OnInit {
     this.shopUserService.isLoggedIn$.subscribe((status: boolean) => {
       this.isLoggedIn = status;
       this.loadCart();
+
+
     });
 
     // تحديث العدد بشكل مباشر عند حدوث أي تغيير في السلة
@@ -85,6 +87,7 @@ export class NavbarComponent implements OnInit {
   logout() {
     this.shopUserService.logout();
   }
+
 }
 
 

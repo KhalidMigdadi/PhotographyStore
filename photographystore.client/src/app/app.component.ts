@@ -1,21 +1,24 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, Renderer2 } from '@angular/core';
-
-interface WeatherForecast {
-  date: string;
-  temperatureC: number;
-  temperatureF: number;
-  summary: string;
-}
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css'] // ✅ Fixed typo (was styleUrl)
 })
 export class AppComponent implements OnInit {
+  showLayout: boolean = true;
 
-  constructor(private renderer: Renderer2) { }
+  constructor(private renderer: Renderer2, private router: Router) {
+    // ✅ Listen to route changes
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        // ✅ Hide navbar/footer on /dash (admin page)
+        this.showLayout = !event.url.includes('/dash');
+      }
+    });
+  }
 
   ngOnInit() {
     this.loadScripts([
@@ -33,8 +36,6 @@ export class AppComponent implements OnInit {
     ]);
   }
 
-
-
   loadScripts(scripts: string[]) {
     scripts.forEach(script => {
       let scriptElement = document.createElement('script');
@@ -44,7 +45,4 @@ export class AppComponent implements OnInit {
       document.body.appendChild(scriptElement);
     });
   }
-
-
-
 }

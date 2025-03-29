@@ -117,8 +117,17 @@ export class ProfileComponent {
         this.userAvatar = user.avatar || '';
       });
     }
+
+    if (userId) {
+      this.shopUserService.getUserById(userId).subscribe(user => {
+        this.userData = user;
+      });
+    }
+
   }
 
+
+  //////////////////////////////////////////////////////////////////////end of ngOninit
   logout() {
     this.shopUserService.logout();
     this.router.navigate(['/login']);
@@ -135,6 +144,29 @@ export class ProfileComponent {
   userId: string | null = null;
 
 
+  //loadOrders() {
+  //  this.shopUserService.getOrders().subscribe(allOrders => {
+  //    const userOrders = allOrders.filter(order => order.User_Id == this.userId);
+
+  //    this.shopUserService.getOrderItems().subscribe(items => {
+  //      this.shopUserService.getProducts().subscribe(products => {
+  //        this.orders = userOrders.map((order, index) => {
+  //          const orderItem = items.find(i => i.CartItem_Id == order.Cart_Id);
+  //          const product = products.find(p => p.id == order.Cart_Id); // Assuming `Cart_Id` = product.id
+
+  //          return {
+  //            index: index + 1,
+  //            name: product ? product.name : 'Unknown',
+  //            date: new Date().toLocaleDateString(), // Mock date — adjust if you have one
+  //            status: 'Pending', // Mock status — replace if real data exists
+  //            total: orderItem ? `$${orderItem.Total}` : '$0',
+  //            productId: product?.id
+  //          };
+  //        });
+  //      });
+  //    });
+  //  });
+  //}
   loadOrders() {
     this.shopUserService.getOrders().subscribe(allOrders => {
       const userOrders = allOrders.filter(order => order.User_Id == this.userId);
@@ -142,15 +174,22 @@ export class ProfileComponent {
       this.shopUserService.getOrderItems().subscribe(items => {
         this.shopUserService.getProducts().subscribe(products => {
           this.orders = userOrders.map((order, index) => {
-            const orderItem = items.find(i => i.CartItem_Id == order.Cart_Id);
-            const product = products.find(p => p.id == order.Cart_Id); // Assuming `Cart_Id` = product.id
+            const cartId = order.Cart_Id;
+
+            // ✅ Match items by Cart_Id (corrected key)
+            const orderItems = items.filter(item => item.Cart_Id === cartId);
+
+            // ✅ Sum the total of all items for this Cart_Id
+            const total = orderItems.reduce((sum, item) => sum + parseFloat(item.Total || '0'), 0);
+
+            // Just get one product that matches the Cart_Id (optional logic)
+            const product = products.find(p => p.id === cartId);
 
             return {
               index: index + 1,
               name: product ? product.name : 'Unknown',
-              date: new Date().toLocaleDateString(), // Mock date — adjust if you have one
-              status: 'Pending', // Mock status — replace if real data exists
-              total: orderItem ? `$${orderItem.Total}` : '$0',
+              date: new Date().toLocaleDateString(),
+              total: `$${total.toFixed(2)}`,
               productId: product?.id
             };
           });
@@ -158,6 +197,7 @@ export class ProfileComponent {
       });
     });
   }
+
   /////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -207,13 +247,30 @@ export class ProfileComponent {
 
 
 
-
+  ////////////////////////////////////////////////////
   ///////////////////
+  saveProfileData() {
+    const userId = this.shopUserService.getUserId();
+    if (!userId) return;
 
+    const updateData = {
+      name: this.userData.name,
+      email: this.userData.email,
+      avatar: this.userData.avatar
+    };
+
+    this.shopUserService.updateUser(userId, updateData).subscribe(() => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Profile Info Updated',
+        timer: 2000,
+        showConfirmButton: false
+      });
+    });
+  }
 
   verifyCurrentPassword() {
     this.passwordError = '';
-
     if (this.password.current === this.userData.password) {
       this.isPasswordVerified = true;
       this.passwordError = '';
@@ -223,45 +280,34 @@ export class ProfileComponent {
     }
   }
 
-  saveChanges() {
+  saveNewPassword() {
     this.passwordError = '';
+    if (!this.isPasswordVerified) {
+      this.passwordError = 'You must verify your current password first';
+      return;
+    }
 
-    if (this.isPasswordVerified && (this.password.new || this.password.confirm)) {
-      if (this.password.new !== this.password.confirm) {
-        this.passwordError = 'New passwords do not match';
-        return;
-      }
+    if (this.password.new !== this.password.confirm) {
+      this.passwordError = 'New passwords do not match';
+      return;
     }
 
     const userId = this.shopUserService.getUserId();
-    if (userId) {
-      const updateData: any = {
-        name: this.userData.name,
-        email: this.userData.email,
-        avatar: this.userData.avatar
-      };
+    if (!userId) return;
 
-      if (this.isPasswordVerified && this.password.new === this.password.confirm) {
-        updateData.password = this.password.new;
-      }
-
-      this.shopUserService.updateUser(userId, updateData).subscribe(() => {
-        Swal.fire({
-          icon: 'success',
-          title: 'Profile Updated',
-          timer: 2000,
-          showConfirmButton: false
-        });
-
-        // Reset password fields
-        this.password = { current: '', new: '', confirm: '' };
-        this.isPasswordVerified = false;
+    this.shopUserService.updateUser(userId, {
+      password: this.password.new
+    }).subscribe(() => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Password Updated',
+        timer: 2000,
+        showConfirmButton: false
       });
-    }
 
-
-   
-
+      this.password = { current: '', new: '', confirm: '' };
+      this.isPasswordVerified = false;
+    });
   }
 
 }
