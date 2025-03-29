@@ -187,13 +187,13 @@ export class ShopComponent implements OnInit {
       return;
     }
 
-    // إنشاء كائن المفضلة مع `userId`
+    // Phantom was here
     const favoriteItem = {
       userId: userId,
       productId: product.id,
-      name: product.name, // إضافة اسم المنتج لتجنب `undefined`
-      image: product.image,
-      price: product.price
+      name: product.name,
+      price: product.price,
+      avatar: product.img // ✅ لاحظ الاسم الصحيح هنا
     };
 
     // إرسال المنتج إلى API
@@ -237,6 +237,12 @@ export class ShopComponent implements OnInit {
       this.product = this.product.sort((a, b) => b.price - a.price);
     }
   }
+
+  // Phantom was here
+  getStars(rating: number): any[] {
+    return Array(rating).fill(0);
+  }
+
 
 
 

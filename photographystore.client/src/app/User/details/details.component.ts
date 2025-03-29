@@ -3,20 +3,15 @@ import { UrlService } from '../../Service/url.service';
 import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 
-
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
   styleUrl: './details.component.css'
 })
-
 export class DetailsComponent implements OnInit {
   product: any;
-  facebookShareUrl: string = '';
-  twitterShareUrl: string = '';
-  instagramShareUrl: string = '';
-  whatsappShareUrl: string = '';
   reviews: any[] = [];
+  activeTab: string = 'description'; 
   newReview = {
     name: '',
     email: '',
@@ -38,17 +33,6 @@ export class DetailsComponent implements OnInit {
         this.newReview.productId = productId;
         this.loadReviews(productId);
       });
-
-      
-      const currentUrl = window.location.href;
-      const encodedUrl = encodeURIComponent(currentUrl);
-      const text = encodeURIComponent(`Check out this awesome product`);
-    
-
-      this.facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
-      this.twitterShareUrl = `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${text}`;
-      this.instagramShareUrl = `https://www.instagram.com/`;
-      this.whatsappShareUrl = `https://wa.me/?text=${text}%20${encodedUrl}`;
     }
   }
 
@@ -62,13 +46,8 @@ export class DetailsComponent implements OnInit {
     this.newReview.productId = productId;
 
     this.urlService.addReview(this.newReview).subscribe(() => {
-     
       this.newReview = { name: '', email: '', comment: '', rating: 5, productId };
-
-    
       this.loadReviews(productId);
-
-      
       Swal.fire({
         title: 'Thank you!',
         text: 'Your review has been submitted successfully.',
@@ -80,10 +59,36 @@ export class DetailsComponent implements OnInit {
     });
   }
 
-
   setRating(star: number) {
     this.newReview.rating = star;
   }
 
-  }
+  
+  share(platform: string) {
+    const currentUrl = window.location.href;
+    const encodedUrl = encodeURIComponent(currentUrl);
+    const text = encodeURIComponent(`Check out this awesome product: ${this.product?.name}`);
 
+    let shareUrl = '';
+
+    switch (platform) {
+      case 'facebook':
+        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
+        break;
+      case 'twitter':
+        shareUrl = `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${text}`;
+        break;
+      case 'whatsapp':
+        shareUrl = `https://wa.me/?text=${text}%20${encodedUrl}`;
+        break;
+      case 'instagram':
+        shareUrl = `https://www.instagram.com/`; 
+        break;
+    }
+
+    if (shareUrl) {
+      window.open(shareUrl, '_blank');
+    }
+  }
+}
+// والله شغل فخم مششششششششششششششش طبيعي

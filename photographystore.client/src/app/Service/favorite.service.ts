@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class FavoriteService {
 
-  private apiUrlFavorite = 'https://67e3f94f2ae442db76d26687.mockapi.io/favorite';  // رابط API للمفضلة
+  private apiUrlFavorite = 'https://67d2b4a390e0670699bec396.mockapi.io/favorite';  // رابط API للمفضلة
 
   constructor(private http: HttpClient) { }
 

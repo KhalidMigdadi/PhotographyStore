@@ -65,11 +65,12 @@
 
                     <div class="share">
                         <h5>Share:</h5>
-                        <a [href]="facebookShareUrl" target="_blank"><i class="fa fa-facebook"></i></a>
-                        <a [href]="twitterShareUrl" target="_blank"><i class="fa fa-twitter"></i></a>
-                        <a [href]="instagramShareUrl" target="_blank"><i class="fa fa-instagram"></i></a>
-                        <a [href]="whatsappShareUrl" target="_blank"><i class="fa fa-whatsapp"></i></a>
+                        <a (click)="share('facebook')"><i class="fa fa-facebook"></i></a>
+                        <a (click)="share('twitter')"><i class="fa fa-twitter"></i></a>
+                        <a (click)="share('instagram')"><i class="fa fa-instagram"></i></a>
+                        <a (click)="share('whatsapp')"><i class="fa fa-whatsapp"></i></a>
                     </div>
+
 
                 </div>
             </div>
@@ -77,14 +78,21 @@
             <!-- Tabs -->
             <div class="col-12 mt-30 mb-20">
                 <ul class="single-product-tab-list nav">
-                    <li><a href="#product-description" class="active" data-bs-toggle="tab">description</a></li>
-                    <li><a href="#product-specifications" data-bs-toggle="tab">specifications</a></li>
-                    <li><a href="#product-reviews" data-bs-toggle="tab">reviews</a></li>
+                    <li>
+                        <a (click)="activeTab = 'description'" [class.active]="activeTab === 'description'">description</a>
+                    </li>
+                    <li>
+                        <a (click)="activeTab = 'specifications'" [class.active]="activeTab === 'specifications'">specifications</a>
+                    </li>
+                    <li>
+                        <a (click)="activeTab = 'reviews'" [class.active]="activeTab === 'reviews'">reviews</a>
+                    </li>
                 </ul>
+
 
                 <div class="single-product-tab-content tab-content">
                     <!-- Description -->
-                    <div class="tab-pane fade active show" id="product-description">
+                    <div *ngIf="activeTab === 'description'">
                         <div class="row">
                             <div class="single-product-description-content col-lg-8 col-12">
                                 <h4>About {{ product.name }}</h4>
@@ -94,7 +102,7 @@
                     </div>
 
                     <!-- Specifications -->
-                    <div class="tab-pane fade" id="product-specifications">
+                    <div *ngIf="activeTab === 'specifications'">
                         <div class="single-product-specification">
                             <ul>
                                 <li *ngFor="let spec of product.specifications">{{ spec }}</li>
@@ -103,7 +111,7 @@
                     </div>
 
                     <!-- Reviews -->
-                    <div class="tab-pane fade" id="product-reviews">
+                    <div *ngIf="activeTab === 'reviews'">
                         <div class="product-ratting-wrap">
                             <div class="pro-avg-ratting">
                                 <h4>4.5 <span>(Overall)</span></h4>

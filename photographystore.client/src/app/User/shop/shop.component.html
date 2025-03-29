@@ -63,32 +63,37 @@
           <div class="col-lg-3 col-md-4 col-sm-6 col-12 mb-35" *ngFor="let item of product">
             <div class="product">
               <!-- Image & Action Start -->
-              <div class="image-action">
-                <a class="image" routerLink="/details">
-                  <img [src]="item.img" alt="{{ item.name }}">
-                </a>
-                <div class="labels">
-                  <span class="label new" *ngIf="item.new">New</span>
-                  <span class="label sale" *ngIf="item.sale">Sale</span>
+                <div class="image-action">
+                    <!-- Phantom Was here -->
+                    <a class="image" [routerLink]="['/details', item.id]">
+                        <img [src]="item.img" alt="{{ item.name }}">
+                    </a>
+                    <div class="labels">
+                        <span class="label new" *ngIf="item.new">New</span>
+                        <span class="label sale" *ngIf="item.sale">Sale</span>
+                    </div>
+                    <!-- Phantom Was here -->
+                    <button (click)="addToFavorite(item)" class="wishlist-btn"><i class="icofont-heart"></i></button>
+
+                    <div class="action">
+                        <button (click)="Addtocart(item)" class="add-to-cart-btn">
+                            <i class="icofont-shopping-cart"></i> Add to Cart
+                        </button>
+                    </div>
                 </div>
-                <button (click)="addToFavorite(product)" class="wishlist-btn"><i class="icofont-heart"></i></button>
-              
-                <div class="action">
-                  <button (click)="Addtocart(item)" class="add-to-cart-btn">
-                    <i class="icofont-shopping-cart"></i> Add to Cart
-                  </button>
-                </div>
-              </div>
               <!-- Image & Action End -->
               <!-- Content Start -->
               <div class="content">
-                <div class="title-price">
-                  <h4 class="title"><a href="single-product.html">{{ item.name }}</a></h4>
-                  <span class="price">{{ item.price }}</span>
-                </div>
+                  <div class="title-price">
+                      <!-- Phantom Was here -->
+                      <h4 class="title"><a [routerLink]="['/details', item.id]">{{ item.name }}</a></h4>
+                      <span class="price">{{ item.price }}</span>
+                  </div>
                 <div class="ratting">
                   <div class="inner">
-                    <span><i class="fa fa-star" *ngFor="let star of item.rating"></i></span>
+                      <span>
+                          <i class="fa fa-star" *ngFor="let star of getStars(item.rating)"></i>
+                      </span>
                   </div>
                 </div>
                 <div class="desc">
