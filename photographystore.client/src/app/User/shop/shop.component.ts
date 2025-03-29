@@ -238,4 +238,80 @@ export class ShopComponent implements OnInit {
     }
   }
 
+
+
+  /////////// FOR SOUND SERACH ////////
+
+  name: string = '';
+  greetingMessage: string = '';
+
+  namesList: string[] = ['Sony', 'Canon EOS R5', 'Canon EOS 5D Mark IV', 'Canon PowerShot V1', 'Canon EOS 250D', 'Canon EOS 90D',
+    'Canon EOS Rebel T8i', 'Canon EOS M50', 'Canon PowerShot G7 X Mark III',
+    'Nikon Z9', 'Nikon D7500', 'Nikon D850', 'Nikon Z50',
+    'Sony Alpha a6000', 'Sony Cyber-shot RX100 VII', 'Sony Alpha 7 IV'
+    ,'Panasonic Lumix'];
+
+  startVoiceRecognition() {
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+      alert('The browser does not support voice search');
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = 'ar-EG';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    recognition.start();
+
+    recognition.onresult = (event: any) => {
+      const spokenName = event.results[0][0].transcript;
+      console.log("Recognized Name: ", spokenName);
+      this.checkNameInList(spokenName);
+    };
+
+    recognition.onerror = (event: any) => {
+      console.error('Error occurred while recognizing speech:', event.error);
+      if (event.error === 'no-speech') {
+        alert('No speech was recognized.');
+      } else if (event.error === 'audio-capture') {
+        alert('There was an issue with the microphone.');
+      } else if (event.error === 'not-allowed') {
+        alert('Microphone permission was not granted.');
+      } else {
+        alert('An unknown error occurred: ' + event.error);
+      }
+    };
+  }
+
+  checkNameInList(spokenName: string) {
+    // Normalize the spoken name: remove extra spaces and convert to lowercase
+    const normalizedSpokenName = spokenName.trim().toLowerCase().replace(/\s+/g, '').replace(/[^\wء-ي]/g, '');
+
+    console.log("Normalized Name: ", normalizedSpokenName);
+
+    // A map for name substitutions (for different pronunciations)
+    const nameSubstitutions: { [key: string]: string } = {
+      "سوني": "sony",
+      "كانون": "canon",
+      "نيكون": "nikon",
+      "باناسونيك": "panasonic"
+    };
+
+    // Correct the name if necessary based on the substitutions map
+    const correctedName = nameSubstitutions[normalizedSpokenName] || normalizedSpokenName;
+
+    // Find all cameras that contain the corrected name (case-insensitive)
+    const matchingCameras = this.namesList.filter(name => name.toLowerCase().includes(correctedName.toLowerCase()));
+
+    if (matchingCameras.length > 0) {
+      this.greetingMessage = `Found the following cameras matching "${spokenName}": ${matchingCameras.join(', ')}`;
+    } else {
+      this.greetingMessage = `No cameras found matching "${spokenName}".`;
+    }
+  }
+
+
 }

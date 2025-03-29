@@ -23,6 +23,15 @@
       <div class="col-lg-9 col-12 order-lg-2 mb-40" id="cards-container">
         <!--Shop Toolbar Start-->
         <div class="shop-toolbar">
+          <!--Product Search Start-->
+          <!--<div class="product-search">
+    <input type="text" placeholder="Search products..."  class="search-input">
+    <button class="search-btn"><i class="fa fa-search"></i></button>
+  </div>-->
+          <input type="text" [(ngModel)]="name" placeholder="Enter Or Say The Camera Name" />
+          <button (click)="startVoiceRecognition()">🎤 Say The Camera Name</button>
+          <p>{{ greetingMessage }}</p> <br />
+          <!--Product Search End-->
           <!--Product View Mode Start-->
           <div class="product-view-mode">
             <button class="active" data-mode="grid"><i class="fa fa-th"></i></button>
