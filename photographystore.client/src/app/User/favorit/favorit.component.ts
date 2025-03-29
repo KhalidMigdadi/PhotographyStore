@@ -14,7 +14,7 @@ export class FavoritComponent {
   constructor(private _htp: UrlService, private cartService: CartService) { }
 
   ngOnInit() {
-    this.showFavorite();
+    this.showfavorite();
   }
 
   favorite: any
@@ -53,14 +53,14 @@ export class FavoritComponent {
     const newFavorite = { userId, productId };
     this._htp.addToFavorite(newFavorite).subscribe(() => {
       alert('Product added to Favorite');
-      this.showFavorite(); // تحديث المفضلة بعد الإضافة
+      this.showfavorite(); // تحديث المفضلة بعد الإضافة
     });
   }
 
   // حذف منتج من المفضلة
   deleteFavorite(id: any) {
     this._htp.DeleteF(id).subscribe(() => {
-      this.showFavorite(); // تحديث المفضلة بعد الحذف
+      this.showfavorite(); // تحديث المفضلة بعد الحذف
       alert('Product deleted from Favorite');
     });
   }
