@@ -207,7 +207,7 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 })
 export class UrlService {
 
-  private apiUrlFavorites = 'https://67e3d3032ae442db76d1c116.mockapi.io/favorite';
+  private apiUrlFavorites = 'https://67d2b4a390e0670699bec396.mockapi.io/favorite';
   private apiUrlProducts = 'https://67ddf63c471aaaa74282f2a0.mockapi.io/product'; // استبدل برابط المنتجات
   private apiUrl = 'https://67d6ac02286fdac89bc2a229.mockapi.io/ShopUsers';
   private orderApi = 'https://67d7325f9d5e3a10152a46a6.mockapi.io/Order';
@@ -236,6 +236,7 @@ export class UrlService {
   ///////////////////////
   setUserId(id: string) {
     this.userIdSubject.next(id);
+    localStorage.setItem('userId', id);
     this.setLoginStatus(true); // ✅ Auto-login
   }
 
@@ -261,7 +262,9 @@ export class UrlService {
   }
 
   getUserId(): string | null {
-    return this.userIdSubject.value;
+    return this.userIdSubject.value || localStorage.getItem('userId');
+    // Phantom Was here
+   
   }
 
   setLoginStatus(status: boolean) {
@@ -271,6 +274,7 @@ export class UrlService {
   logout() {
     this.userIdSubject.next(null);
     this.isLoggedInSubject.next(false);
+    localStorage.removeItem('userId');
   }
 
   ///////////////////////
@@ -312,15 +316,18 @@ export class UrlService {
     return this._url.get(`https://67ddf63c471aaaa74282f2a0.mockapi.io/product/${id}`);
   }
 
-  ShowF() {
-    return this._url.get<any>("https://67e3d3032ae442db76d1c116.mockapi.io/favorite")
+  // والله تعبت نفسياااااااااااا
 
+  // خالد لا ترن علي الا لبعدددددد العيييييييد
+
+  ShowF() {
+    return this._url.get<any>("https://67d2b4a390e0670699bec396.mockapi.io/favorite");
   }
 
-    DeleteF(id: any) {
+  DeleteF(id: any) {
+    return this._url.delete<any>(`https://67d2b4a390e0670699bec396.mockapi.io/favorite/${id}`);
+  }
 
-      return this._url.delete<any>(`https://67e3d3032ae442db76d1c116.mockapi.io/favorite/${id}`)
-    }
 
   ///////////////////////
   // ✅ Reviews

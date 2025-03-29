@@ -233,6 +233,12 @@ export class LoginRegisterComponent implements OnInit {
       if (user) {
         this.shopUserService.setUserId(user.id);            // Store user ID
         this.shopUserService.setLoginStatus(true);          // Set global login status
+        this.shopUserService.setUserId(user.id);
+        // Phantom Was here
+        localStorage.setItem('userId', user.id); 
+        this.shopUserService.CartId;
+
+        //this.isLoggedIn = true;
 
         Swal.fire({
           icon: 'success',
