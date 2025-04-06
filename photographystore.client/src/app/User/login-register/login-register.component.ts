@@ -248,7 +248,7 @@ export class LoginRegisterComponent implements OnInit {
           showConfirmButton: false
         }).then(() => {
           this.AddNewCartItem(this.Data);
-          this.router.navigate(['/profile']);
+          this.router.navigate(['/shop']);
         });
       } else {
         Swal.fire({

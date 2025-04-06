@@ -47,13 +47,28 @@ export class FavoritComponent {
   // إضافة منتج إلى المفضلة
   addToFavorite(productId: any) {
     const userId = localStorage.getItem('userId');
-    if (!userId) return; // التحقق من وجود الـ userId
+    if (!userId) return;
 
-    // إنشاء الكائن المفضل وإرساله إلى الواجهة الخلفية
-    const newFavorite = { userId, productId };
-    this._htp.addToFavorite(newFavorite).subscribe(() => {
-      alert('Product added to Favorite');
-      this.showfavorite(); // تحديث المفضلة بعد الإضافة
+    // أولاً نجيب المفضلة من السيرفر ونتأكد قبل الإضافة
+    this._htp.ShowF().subscribe((favorites: any[]) => {
+      const userFavorites = favorites.filter(f => f.userId == userId);
+      const alreadyExists = userFavorites.some(fav => fav.productId == productId);
+
+      if (alreadyExists) {
+        Swal.fire({
+          icon: 'info',
+          title: 'Already in Favorites',
+          text: 'This product is already in your favorites list.'
+        });
+        return;
+      }
+
+      // ما في تكرار، نضيفه للمفضلة
+      const newFavorite = { userId, productId };
+      this._htp.addToFavorite(newFavorite).subscribe(() => {
+        Swal.fire('Added to Favorites!', '', 'success');
+        this.showfavorite();
+      });
     });
   }
 

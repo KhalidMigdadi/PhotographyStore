@@ -131,6 +131,7 @@ export class ProfileComponent {
   logout() {
     this.shopUserService.logout();
     this.router.navigate(['/login']);
+
   }
 
 

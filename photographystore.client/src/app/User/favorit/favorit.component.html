@@ -42,11 +42,11 @@
                       <!-- Phantom Was here -->
                       <td>
                           <a [routerLink]="['/details', item.productId]">
-                              <img [src]="item.avatar" alt="Product">
+                              <img [src]="item.avatar" alt="Product" width="200px">
                           </a>
                       </td>
                       <td>{{item.name}}</td>
-                      <td>{{item.price}}</td>
+                      <td>JD {{item.price}}</td>
                       <!--<td>
           <div class="pro-qty"> {{item.quantity}}<input type="text" value="1"></div>
         </td>-->
@@ -61,16 +61,16 @@
                       <td colspan="5" class="text-center">No items in your wishlist yet 💔</td>
                   </tr>
              
-                <tr *ngFor="let item of favorite">
+                <!--<tr *ngFor="let item of favorite">
                   <td><a href="single-product.html"><img [src]="item.avatar" alt="Product"></a></td>
                   <td>{{item.name}}</td>
-                  <td>{{item.price}}</td>
+                  <td>{{item.price}}</td>-->
                   <!--<td>
                     <div class="pro-qty"> {{item.quantity}}<input type="text" value="1"></div>
                   </td>-->
-                  <td><a href="#" class="btn">Add to Cart</a></td>
+                  <!--<td><a href="#" class="btn">Add to Cart</a></td>
                   <td> <button (click)="deleteFavorite(item.id)"><i class="fa fa-trash-o"></i> </button></td>
-                </tr>
+                </tr>-->
               </tbody>
 
               <!--<tr>

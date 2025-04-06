@@ -28,9 +28,33 @@
     <input type="text" placeholder="Search products..."  class="search-input">
     <button class="search-btn"><i class="fa fa-search"></i></button>
   </div>-->
-          <input type="text" [(ngModel)]="name" placeholder="Enter Or Say The Camera Name" />
-          <button (click)="startVoiceRecognition()">🎤 Say The Camera Name</button>
-          <p>{{ greetingMessage }}</p> <br />
+          <!--<input type="text" [(ngModel)]="searchTerm" (input)="filterCameras()" placeholder="Enter The Camera Name" />
+
+  <div *ngFor="let camera of filteredCameras">
+    <h3>{{ camera.name }}</h3>-->
+          <!-- معلومات الكاميرا الأخرى -->
+          <!--</div>-->
+          <!--<button (click)="startVoiceRecognition()">🎤 Say The Camera Name</button>
+  <p>{{ greetingMessage }}</p> <br />-->
+
+
+          <div class="voice-search-wrapper d-flex align-items-center gap-2 mb-4" style="flex-wrap: wrap;">
+            <div class="input-group" style="max-width: 400px;">
+              <span class="input-group-text bg-light"><i class="fa fa-microphone text-secondary"></i></span>
+              <input type="text"
+                     [(ngModel)]="name"
+                     class="form-control shadow-sm"
+                     placeholder="Say or type camera name..." />
+            </div>
+
+            <button (click)="startVoiceRecognition()"
+                    class="btn btn-outline-primary"
+                    style="height: 44px;">
+              <i class="fa fa-microphone"></i> Start Voice
+            </button>
+          </div>
+
+
           <!--Product Search End-->
           <!--Product View Mode Start-->
           <div class="product-view-mode">
@@ -39,18 +63,12 @@
           </div>
           <!--Product View Mode End-->
           <!--Product Showing Start-->
-          <div class="product-showing me-auto">
-            <p>Showing 9 of 72</p>
-          </div>
           <!--Product Showing End-->
           <!--Product Short Start-->
           <div class="product-short">
             <p>Sort by</p>
             <select class="nice-select" (change)="sortProducts($event)">
-              <option value="trending">Trending items</option>
-              <option value="sales">Best sellers</option>
-              <option value="rating">Best rated</option>
-              <option value="date">Newest items</option>
+              <option value="date">Show All</option>
               <option value="price-asc">Price: low to high</option>
               <option value="price-desc">Price: high to low</option>
             </select>
@@ -87,7 +105,7 @@
                   <div class="title-price">
                       <!-- Phantom Was here -->
                       <h4 class="title"><a [routerLink]="['/details', item.id]">{{ item.name }}</a></h4>
-                      <span class="price">{{ item.price }}</span>
+                      <span class="price">JD {{ item.price }}</span>
                   </div>
                 <div class="ratting">
                   <div class="inner">
@@ -194,7 +212,7 @@
         <div class="icon"></div>
         <div class="content">
           <h3>Free home delivery</h3>
-          <p>Provide free home delivery for all product over $100</p>
+          <p>Provide free home delivery for all product over JD 100</p>
         </div>
       </div>
 

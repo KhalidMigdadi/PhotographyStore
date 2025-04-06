@@ -30,6 +30,13 @@ export class DetailsComponent implements OnInit {
     if (productId) {
       this.urlService.getProductByID(productId).subscribe((res: any) => {
         this.product = { ...res };
+
+        // ⭐️ تحويل الـ specifications من String إلى Array
+        if (typeof this.product.specifications === 'string') {
+          this.product.specifications = this.product.specifications.split('\n');
+        }
+
+        console.log('product details: ', this.product);
         this.newReview.productId = productId;
         this.loadReviews(productId);
       });
@@ -66,8 +73,13 @@ export class DetailsComponent implements OnInit {
   
   share(platform: string) {
     const currentUrl = window.location.href;
+    const name = this.product?.name || '';
+    const description = this.product?.description ||  '';
+    const extraNote = 'هذا المنتج جميل وأنصح به ❤️';
+
+    const fullText = `Check out this awesome product: ${ name } - ${ description } \n${ extraNote }`;
+    const encodedText = encodeURIComponent(fullText);
     const encodedUrl = encodeURIComponent(currentUrl);
-    const text = encodeURIComponent(`Check out this awesome product: ${this.product?.name}`);
 
     let shareUrl = '';
 
@@ -76,13 +88,13 @@ export class DetailsComponent implements OnInit {
         shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
         break;
       case 'twitter':
-        shareUrl = `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${text}`;
+        shareUrl =` https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedText}`;
         break;
       case 'whatsapp':
-        shareUrl = `https://wa.me/?text=${text}%20${encodedUrl}`;
+        shareUrl = `https://wa.me/?text=${encodedText}%20${encodedUrl}`;
         break;
       case 'instagram':
-        shareUrl = `https://www.instagram.com/`; 
+        shareUrl = 'https://www.instagram.com/'; 
         break;
     }
 
@@ -90,5 +102,6 @@ export class DetailsComponent implements OnInit {
       window.open(shareUrl, '_blank');
     }
   }
+
 }
 // والله شغل فخم مششششششششششششششش طبيعي

@@ -1,77 +1,4 @@
-//import { Component } from '@angular/core';
-//import { UrlService } from '../../Service/url.service';
 
-//@Component({
-//  selector: 'app-shop',
-//  templateUrl: './shop.component.html',
-//  styleUrl: './shop.component.css'
-//})
-//export class ShopComponent {
-
-//  constructor(private _http: UrlService) { }
-
-//  ngOnInit() {
-//    this.showdata();
-
-
-
-
-//  }
-
-
-//  product: any[] = [];
-//  allProducts: any[] = [];
-
-//  showdata() {
-//    this._http.getproducts().subscribe((data) => {
-//      this.product = data;
-//      this.allProducts = data;
-//    });
-
-
-
-
-
-//  }
-//  Addtocart(data: any) {
-
-//    this._http.Addproducts(data).subscribe(() =>
-
-//      alert("Product Added to Cart"))
-
-
-
-//  }
-
-
-//  Addtofavorite(favorite: any) {
-//    this._http.Addfavorite(favorite).subscribe(() =>
-
-//      alert("Product Added to Favorite"))
-
-
-//  }
-
-
-// sortProducts(event: any) {
-//  const value = event.target.value;
-
-//  if (value === 'trending') {
-//    this.product = this.product.sort((a, b) => b.trending - a.trending);
-//  } else if (value === 'sales') {
-//    this.product = this.product.sort((a, b) => b.sales - a.sales);
-//  } else if (value === 'rating') {
-//    this.product = this.product.sort((a, b) => b.rating - a.rating);
-//  } else if (value === 'date') {
-//    this.product = this.product.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-//  } else if (value === 'price-asc') {
-//    this.product = this.product.sort((a, b) => a.price - b.price);
-//  } else if (value === 'price-desc') {
-//    this.product = this.product.sort((a, b) => b.price - a.price);
-//  }
-//}
-
-//  }
 
 import { Component, OnInit } from '@angular/core';
 import { UrlService } from '../../Service/url.service';
@@ -85,6 +12,8 @@ import Swal from 'sweetalert2';
 })
 export class ShopComponent implements OnInit {
 
+
+
   product: any[] = [];
   allProducts: any[] = [];
   favoriteList: any[] = []; // ✅ تخزين المنتجات المفضلة
@@ -94,7 +23,11 @@ export class ShopComponent implements OnInit {
   ngOnInit() {
     this.showdata();
     this.loadFavorites(); // ✅ تحميل المنتجات المفضلة عند فتح الصفحة
+
+   
   }
+
+  
 
   // ✅ جلب المنتجات من API
   showdata() {
@@ -292,30 +225,61 @@ export class ShopComponent implements OnInit {
     };
   }
 
+  //checkNameInList(spokenName: string) {
+  //  // Normalize the spoken name: remove extra spaces and convert to lowercase
+  //  const normalizedSpokenName = spokenName.trim().toLowerCase().replace(/\s+/g, '').replace(/[^\wء-ي]/g, '');
+
+  //  console.log("Normalized Name: ", normalizedSpokenName);
+
+  //  // A map for name substitutions (for different pronunciations)
+  //  const nameSubstitutions: { [key: string]: string } = {
+  //    "سوني": "sony",
+  //    "كانون": "canon",
+  //    "نيكون": "nikon",
+  //    "باناسونيك": "panasonic"
+  //  };
+
+  //  // Correct the name if necessary based on the substitutions map
+  //  const correctedName = nameSubstitutions[normalizedSpokenName] || normalizedSpokenName;
+
+  //  // Find all cameras that contain the corrected name (case-insensitive)
+  //  const matchingCameras = this.namesList.filter(name => name.toLowerCase().includes(correctedName.toLowerCase()));
+
+  //  if (matchingCameras.length > 0) {
+  //    this.greetingMessage = `Found the following cameras matching "${spokenName}": ${matchingCameras.join(', ')}`;
+  //  } else {
+  //    this.greetingMessage = `No cameras found matching "${spokenName}".`;
+  //  }
+  //}
+
   checkNameInList(spokenName: string) {
-    // Normalize the spoken name: remove extra spaces and convert to lowercase
     const normalizedSpokenName = spokenName.trim().toLowerCase().replace(/\s+/g, '').replace(/[^\wء-ي]/g, '');
 
-    console.log("Normalized Name: ", normalizedSpokenName);
-
-    // A map for name substitutions (for different pronunciations)
     const nameSubstitutions: { [key: string]: string } = {
       "سوني": "sony",
       "كانون": "canon",
       "نيكون": "nikon",
-      "باناسونيك": "panasonic"
+      "باناسونيك": "panasonic",
+      "عرضالكل": "showall",
+      "عرضكل": "showall"
     };
 
-    // Correct the name if necessary based on the substitutions map
     const correctedName = nameSubstitutions[normalizedSpokenName] || normalizedSpokenName;
 
-    // Find all cameras that contain the corrected name (case-insensitive)
-    const matchingCameras = this.namesList.filter(name => name.toLowerCase().includes(correctedName.toLowerCase()));
+    if (correctedName === 'showall') {
+      this.product = [...this.allProducts];
+      this.greetingMessage = 'Showing all products 📦';
+      return;
+    }
 
-    if (matchingCameras.length > 0) {
-      this.greetingMessage = `Found the following cameras matching "${spokenName}": ${matchingCameras.join(', ')}`;
+    this.product = this.allProducts.filter((p) =>
+      p.name.toLowerCase().includes(correctedName)
+    );
+
+    if (this.product.length > 0) {
+      this.greetingMessage = `Showing results for "${spokenName}" 📸`;
     } else {
-      this.greetingMessage = `No cameras found matching "${spokenName}".`;
+      this.greetingMessage = `No products found matching "${spokenName}". 😢`;
     }
   }
 

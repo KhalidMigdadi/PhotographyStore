@@ -29,50 +29,49 @@
 
             <!-- Product Info -->
             <div class="col-lg-6 col-12 mb-20">
-                <div class="single-product-content">
-                    <div class="title-price">
-                        <h2 class="title">{{ product.name }}</h2>
-                        <span class="price">{{ product.price }} JD</span>
-                    </div>
-
-                    <div class="ratting">
-                        <div class="inner">
-                            <span>
-                                <i class="fa" *ngFor="let i of [1,2,3,4,5]" [ngClass]="i <= (product.rating || 5) ? 'fa-star' : 'fa-star-o'"></i>
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="desc" *ngIf="product.specifications?.length">
-                        <h5>Specifications</h5>
-                        <ul>
-                            <li *ngFor="let spec of product.specifications">{{ spec }}</li>
-                        </ul>
-                    </div>
-
-                    <!-- <div class="quantity"> -->
-                    <!--     <h5>Quantity:</h5> -->
-                    <!--     <div class="pro-qty"> -->
-                    <!--         <input type="number" min="1" [(ngModel)]="product.quantity"> -->
-                    <!--     </div> -->
-                    <!-- </div> -->
-
-                    <div class="action">
-                        <a [routerLink]="['/cart']" class="action-btn action-cart">
-                            <i class="icofont-shopping-cart"></i>
-                        </a>
-                    </div>
-
-                    <div class="share">
-                        <h5>Share:</h5>
-                        <a (click)="share('facebook')"><i class="fa fa-facebook"></i></a>
-                        <a (click)="share('twitter')"><i class="fa fa-twitter"></i></a>
-                        <a (click)="share('instagram')"><i class="fa fa-instagram"></i></a>
-                        <a (click)="share('whatsapp')"><i class="fa fa-whatsapp"></i></a>
-                    </div>
-
-
+              <div class="single-product-content">
+                <div class="title-price">
+                  <h2 class="title">{{ product.name }}</h2>
+                  <span class="price">{{ product.price }} JD</span>
                 </div>
+
+                <div class="ratting">
+                  <div class="inner">
+                    <span>
+                      <i class="fa" *ngFor="let i of [1,2,3,4,5]" [ngClass]="i <= (product.rating || 5) ? 'fa-star' : 'fa-star-o'"></i>
+                    </span>
+                  </div>
+                </div>
+
+                <div class="desc" *ngIf="product.specifications?.length">
+                  <h5>Specifications</h5>
+                  <ul>
+                    <li *ngFor="let spec of product.specifications">{{ spec }}</li>
+                  </ul>
+                </div>
+
+                <!-- <div class="quantity"> -->
+                <!--     <h5>Quantity:</h5> -->
+                <!--     <div class="pro-qty"> -->
+                <!--         <input type="number" min="1" [(ngModel)]="product.quantity"> -->
+                <!--     </div> -->
+                <!-- </div> -->
+
+                <div class="action">
+                  <a [routerLink]="['/cart']" class="action-btn action-cart">
+                    <i class="icofont-shopping-cart"></i>
+                  </a>
+                </div>
+
+                <div class="share">
+                  <h5>Share:</h5>
+                  <a (click)="share('facebook')"><i class="fa fa-facebook"></i></a>
+                  <a (click)="share('twitter')"><i class="fa fa-twitter"></i></a>
+                  <a (click)="share('instagram')"><i class="fa fa-instagram"></i></a>
+                  <a (click)="share('whatsapp')"><i class="fa fa-whatsapp"></i></a>
+                </div>
+
+              </div>
             </div>
 
             <!-- Tabs -->
@@ -140,7 +139,7 @@
                                             <span>({{ review.rating }})</span>
                                         </div>
                                     </div>
-                                    <!-- <p>{{ review.comment }}</p> -->
+                                     <p>{{ review.comment }}</p> 
                                 </div>
                             </div>
 

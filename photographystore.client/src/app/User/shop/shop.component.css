@@ -517,3 +517,28 @@ h2, h3, h4 {
   .search-btn:hover {
     background-color: #0056b3;
   }
+
+
+
+.product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* مسافة بين الكروت */
+}
+
+.product {
+  flex: 1 1 calc(25% - 20px); /* أو حسب عدد الأعمدة */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid #ddd;
+  padding: 15px;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+  /* لضمان أن المحتوى يمتد ويملأ المساحة */
+  .product .image-action,
+  .product .content {
+    flex-grow: 1;
+  }
